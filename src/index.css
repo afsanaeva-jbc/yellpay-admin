@@ -5,8 +5,18 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
+/* Import Noto Sans from fontsource */
+@import "@fontsource/noto-sans";          /* defaults to 400 */
+@import "@fontsource/noto-sans/400.css";  /* Regular */
+@import "@fontsource/noto-sans/700.css";  /* Bold */
+@import "@fontsource/noto-sans-jp";          /* Defaults to weight 400 */
+@import "@fontsource/noto-sans-jp/400.css";   /* Regular weight */
+@import "@fontsource/noto-sans-jp/700.css";   /* Bold weight */
+
 :root {
-  font-family: "Nano Sans" !important;
+  /* ✅ Use Noto Sans */
+  font-family: "Noto Sans", sans-serif !important;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
