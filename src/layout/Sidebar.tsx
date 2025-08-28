@@ -1,4 +1,12 @@
-import { Box, Collapse, Drawer, List, ListItem, ListItemIcon, Typography } from "@mui/material";
+import {
+  Box,
+  Collapse,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  Typography,
+} from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SideBarItems } from "./sidebarItems";
 import { useState, useEffect } from "react";
@@ -18,7 +26,13 @@ const SideBar = ({ open }: SideBarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleParentListItemClick = (index: number, route: string | undefined, hasChildren: boolean, name: string, type: string) => {
+  const handleParentListItemClick = (
+    index: number,
+    route: string | undefined,
+    hasChildren: boolean,
+    name: string,
+    type: string
+  ) => {
     if (hasChildren) {
       setExpandedIndex(expandedIndex === index ? null : index);
     } else {
@@ -31,7 +45,10 @@ const SideBar = ({ open }: SideBarProps) => {
     }
   };
 
-  const handleChildListItemClick = (parentIndex: number, route: string | undefined) => {
+  const handleChildListItemClick = (
+    parentIndex: number,
+    route: string | undefined
+  ) => {
     if (route) {
       navigate(route);
     }
@@ -46,7 +63,9 @@ const SideBar = ({ open }: SideBarProps) => {
       }
 
       if (item.children && item.children.length > 0) {
-        const childMatch = item.children.find((child) => child.route === location.pathname);
+        const childMatch = item.children.find(
+          (child) => child.route === location.pathname
+        );
         if (childMatch) {
           return { parentIndex: index, isChild: true };
         }
@@ -64,20 +83,26 @@ const SideBar = ({ open }: SideBarProps) => {
       setSelectedIndex(null);
       setExpandedIndex(null);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   // Group items by section
-  const mainMenuItems = sideBarItems.filter(item => item.section === 'main');
-  const managementItems = sideBarItems.filter(item => item.section === 'management');
-  const supportItems = sideBarItems.filter(item => item.section === 'support');
-  const documentItems = sideBarItems.filter(item => item.section === 'documents');
+  const mainMenuItems = sideBarItems.filter((item) => item.section === "main");
+  const managementItems = sideBarItems.filter(
+    (item) => item.section === "management"
+  );
+  const supportItems = sideBarItems.filter(
+    (item) => item.section === "support"
+  );
+  const documentItems = sideBarItems.filter(
+    (item) => item.section === "documents"
+  );
 
   const renderMenuItems = (items: typeof sideBarItems, startIndex: number) => {
     return items.map((item, idx) => {
       const index = startIndex + idx;
       const isSelected = selectedIndex === index;
-      
+
       return (
         <Box key={index}>
           <ListItem
@@ -88,29 +113,37 @@ const SideBar = ({ open }: SideBarProps) => {
               mx: 1,
               mr: isSelected ? 2.5 : 1,
               mb: 0.5,
-              backgroundColor: isSelected ? "#e5e7eb" : "transparent", 
+              backgroundColor: isSelected ? "#e5e7eb" : "transparent",
               "&:hover": {
-                backgroundColor: isSelected ? "#e5e7eb" : "#f3f4f6", 
+                backgroundColor: isSelected ? "#e5e7eb" : "#f3f4f6",
               },
             }}
-            onClick={() => handleParentListItemClick(index, item.route, !!item.children, item?.name ?? "", item?.type ?? "")}
+            onClick={() =>
+              handleParentListItemClick(
+                index,
+                item.route,
+                !!item.children,
+                item?.name ?? "",
+                item?.type ?? ""
+              )
+            }
           >
-            <ListItemIcon 
-              sx={{ 
-                color: isSelected ? "#111827" : "#6b7280", 
-                minWidth: "5px",
+            <ListItemIcon
+              sx={{
+                color: isSelected ? "#111827" : "#1f2937",
+                minWidth: "15px",
                 mr: open ? 2 : 0,
               }}
             >
               {item.icon}
             </ListItemIcon>
             {open && (
-              <Typography 
-                variant="body2" 
+              <Typography
+                variant="body2"
                 sx={{
-                  color: isSelected ? "#111827" : "#4b5563", 
+                  color: isSelected ? "#111827" : "#1f2937",
                   fontWeight: isSelected ? 600 : 500,
-                  fontSize: "12px",
+                  fontSize: "14px",
                 }}
               >
                 {item.text}
@@ -119,14 +152,21 @@ const SideBar = ({ open }: SideBarProps) => {
           </ListItem>
 
           {item.children && item.children.length > 0 && (
-            <Collapse in={expandedIndex === index && open} timeout="auto" unmountOnExit>
+            <Collapse
+              in={expandedIndex === index && open}
+              timeout="auto"
+              unmountOnExit
+            >
               {item.children.map((childItem, childIndex) => (
                 <ListItem
                   key={childIndex}
                   sx={{
                     cursor: "pointer",
                     position: "relative",
-                    backgroundColor: location.pathname === childItem.route ? "#e5e7eb" : 'transparent',
+                    backgroundColor:
+                      location.pathname === childItem.route
+                        ? "#e5e7eb"
+                        : "transparent",
                     borderRadius: "6px",
                     mx: 1,
                     mb: 0.5,
@@ -135,22 +175,31 @@ const SideBar = ({ open }: SideBarProps) => {
                       backgroundColor: "#f3f4f6",
                     },
                   }}
-                  onClick={() => handleChildListItemClick(index, childItem.route)}
+                  onClick={() =>
+                    handleChildListItemClick(index, childItem.route)
+                  }
                 >
-                  <ListItemIcon 
-                    sx={{ 
-                      color: location.pathname === childItem.route ? "#111827" : "#6b7280",
+                  <ListItemIcon
+                    sx={{
+                      color:
+                        location.pathname === childItem.route
+                          ? "#111827"
+                          : "#6b7280",
                       minWidth: "20px",
                       mr: 2,
                     }}
                   >
                     {childItem.icon}
                   </ListItemIcon>
-                  <Typography 
-                    variant="body2" 
+                  <Typography
+                    variant="body2"
                     sx={{
-                      color: location.pathname === childItem.route ? "#111827" : "#4b5563",
-                      fontWeight: location.pathname === childItem.route ? 600 : 500,
+                      color:
+                        location.pathname === childItem.route
+                          ? "#111827"
+                          : "#4b5563",
+                      fontWeight:
+                        location.pathname === childItem.route ? 600 : 500,
                       fontSize: "13px",
                     }}
                   >
@@ -213,45 +262,46 @@ const SideBar = ({ open }: SideBarProps) => {
             src="src/assets/yellpayLogo.png"
             alt="YellPay Logo"
             sx={{
-              height: 30,
-              width: 30,
+              height: 35,
+              width: 35,
             }}
           />
         )}
       </Box>
 
-      <List sx={{ mt: 1, px: 0 }}>
+      <List sx={{ mt: 1, px: 0 ,mx:2}}>
         {/* Main Menu Section */}
+        <br />
         {open && (
-          <Typography 
-            variant="caption" 
-            sx={{ 
-              px: 2, 
-              py: 1, 
-              color: "#9ca3af", 
+          <Typography
+            variant="caption"
+            sx={{
+              px: 3,
+              py: 1,
+              color: "#9ca3af",
               fontWeight: 500,
-              fontSize: "11px",           
-              letterSpacing: "0.05em"
+              fontSize: "12px",
+              letterSpacing: "0.05em",
             }}
           >
             Main Menu
           </Typography>
         )}
         {renderMenuItems(mainMenuItems, 0)}
-
+        <br />
         {/* Management Section */}
         {managementItems.length > 0 && (
           <>
             {open && (
-              <Typography 
-                variant="caption" 
-                sx={{ 
-                  px: 2, 
-                  py: 1, 
-                  color: "#9ca3af", 
+              <Typography
+                variant="caption"
+                sx={{
+                  px: 3,
+                  py: 1,
+                  color: "#9ca3af",
                   fontWeight: 500,
-                  fontSize: "11px",
-                  letterSpacing: "0.05em"
+                  fontSize: "12px",
+                  letterSpacing: "0.05em",
                 }}
               >
                 Management
@@ -260,48 +310,55 @@ const SideBar = ({ open }: SideBarProps) => {
             {renderMenuItems(managementItems, mainMenuItems.length)}
           </>
         )}
-
+        <br />
         {/* Documents Section */}
         {documentItems.length > 0 && (
           <>
             {open && (
-              <Typography 
-                variant="caption" 
-                sx={{ 
-                  px: 2, 
-                  py: 1, 
-                  color: "#9ca3af", 
+              <Typography
+                variant="caption"
+                sx={{
+                  px: 3,
+                  py: 1,
+                  color: "#9ca3af",
                   fontWeight: 500,
-                  fontSize: "11px",
-                  letterSpacing: "0.05em"
+                  fontSize: "12px",
+                  letterSpacing: "0.05em",
                 }}
               >
                 Documents
               </Typography>
             )}
-            {renderMenuItems(documentItems, mainMenuItems.length + managementItems.length)}
+            {renderMenuItems(
+              documentItems,
+              mainMenuItems.length + managementItems.length
+            )}
           </>
         )}
-
         {/* Support Section */}
         {supportItems.length > 0 && (
           <>
             {open && (
-              <Typography 
-                variant="caption" 
-                sx={{ 
-                  px: 2, 
-                  py: 1, 
-                  color: "#9ca3af", 
+              <Typography
+                variant="caption"
+                sx={{
+                  px: 3,
+                  py: 1,
+                  color: "#9ca3af",
                   fontWeight: 500,
-                  fontSize: "11px",
-                  letterSpacing: "0.05em"
+                  fontSize: "12px",
+                  letterSpacing: "0.05em",
                 }}
               >
                 Support
               </Typography>
             )}
-            {renderMenuItems(supportItems, mainMenuItems.length + managementItems.length + documentItems.length)}
+            {renderMenuItems(
+              supportItems,
+              mainMenuItems.length +
+                managementItems.length +
+                documentItems.length
+            )}
           </>
         )}
       </List>
