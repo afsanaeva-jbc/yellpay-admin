@@ -26,7 +26,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* Main content area that adjusts to sidebar */}
       <Box
         sx={{
-          ml: sidebarOpen ? 25 : 7,
+          ml: sidebarOpen ? 30 : 7,
           transition: "margin 0.3s",
           minHeight: "100vh",
         }}
@@ -52,7 +52,8 @@ const Layout = ({ children }: LayoutProps) => {
           sx={{
             pb: 11.625,
             pt: 4,
-            px: 3, // Add some padding for content
+            pl: 6, // Add some padding for content
+            pr: 3,
             minHeight: `calc(100vh - 13.3rem)`,
           }}
         >

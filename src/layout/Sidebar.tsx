@@ -11,8 +11,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SideBarItems } from "./sidebarItems";
 import { useState, useEffect } from "react";
 
-const expandedWidth = 210;
-const collapsedWidth = 56;
+const expandedWidth = 250;
+const collapsedWidth = 70;
 
 interface SideBarProps {
   open: boolean;
@@ -111,6 +111,7 @@ const SideBar = ({ open }: SideBarProps) => {
               position: "relative",
               borderRadius: "6px",
               mx: 1,
+              ml:0,
               mr: isSelected ? 2.5 : 1,
               mb: 0.5,
               backgroundColor: isSelected ? "#e5e7eb" : "transparent",
@@ -133,6 +134,7 @@ const SideBar = ({ open }: SideBarProps) => {
                 color: isSelected ? "#111827" : "#1f2937",
                 minWidth: "15px",
                 mr: open ? 2 : 0,
+                
               }}
             >
               {item.icon}
@@ -144,6 +146,7 @@ const SideBar = ({ open }: SideBarProps) => {
                   color: isSelected ? "#111827" : "#1f2937",
                   fontWeight: isSelected ? 600 : 500,
                   fontSize: "14px",
+                  
                 }}
               >
                 {item.text}
@@ -252,7 +255,7 @@ const SideBar = ({ open }: SideBarProps) => {
             src="src/assets/loginBanner.png"
             alt="YellPay Logo"
             sx={{
-              height: 50,
+              height: 70,
               width: "auto",
             }}
           />
@@ -312,7 +315,7 @@ const SideBar = ({ open }: SideBarProps) => {
         )}
         <br />
         {/* Documents Section */}
-        {documentItems.length > 0 && (
+        {/* {documentItems.length > 0 && (
           <>
             {open && (
               <Typography
@@ -334,7 +337,7 @@ const SideBar = ({ open }: SideBarProps) => {
               mainMenuItems.length + managementItems.length
             )}
           </>
-        )}
+        )} */}
         {/* Support Section */}
         {supportItems.length > 0 && (
           <>
