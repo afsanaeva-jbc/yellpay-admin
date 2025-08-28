@@ -1,0 +1,11 @@
+{
+    "student": "Student",
+    "student_details": "Student Details",
+    "add_new_student": "Add New Student",
+    "download":"Download Student Template",
+    "backStudent": "Back to Student List",
+    "basic_info": "Basic Information",
+    "academic_info" : "Academic Information",
+    "contact_info": "Contact Information"
+
+}

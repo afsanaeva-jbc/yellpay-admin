@@ -1,0 +1,20 @@
+{
+    "dashboard": "ダッシュボード",
+    "Administrators": "管理者",
+    "students": "生徒",
+    "schoolAdmin": "学校管理者",
+    "classes": "クラス",
+    "clubs": "クラブ",
+    "workflow": "ワークフロー",
+    "roles":"役割",
+    "roleList": "役割一覧",
+    "eventManagement": "イベント",
+    "announcements": "お知らせ",
+    "incomeList": "収入一覧",
+    "unpaidList": "未入金一覧",
+    "documentManagement": "資料管理",
+    "stakeholderManagement": "関係者管理",
+    "studentManagement": "生徒管理",
+    "logout": "ログアウト",
+    "merchants": "加盟店"
+}

@@ -1,0 +1,10 @@
+{
+    "registration_successful": "Registration successful!",
+    "registration_failed": "Registration failed!",
+    "update_success" : "Update successful!",
+    "update_failed": "Update failed!",
+    "csv_import_success": "CSV import successful!",
+    "csv_import_failed": "CSV import failed!",
+    "delete_success": "Delete successful!",
+    "delete_failed": "Delete failed!"
+}

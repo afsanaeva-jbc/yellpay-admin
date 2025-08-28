@@ -1,0 +1,10 @@
+[
+  { "name": "docs", "label": "Docs" },
+  { "name": "visibility", "label": "Visibility" },
+  { "name": "person", "label": "Person" },
+  { "name": "apartment", "label": "Office" },
+  { "name": "check_circle", "label": "Approved" },
+  { "name": "schedule", "label": "Schedule" },
+  { "name": "trophy", "label": "Completed" },
+  { "name": "settings", "label": "Configuration" }
+]

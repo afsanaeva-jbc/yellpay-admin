@@ -1,0 +1,10 @@
+{
+    "registration_successful": "登録が完了しました！",
+    "registration_failed": "登録に失敗しました!",
+    "update_success" : "更新に成功しました!",
+    "update_failed": "更新に失敗しました!",
+    "csv_import_success": "CSVのインポートに成功しました!",
+    "csv_import_failed": "CSVのインポートに失敗しました!",
+    "delete_success": "削除に成功しました！",
+    "delete_failed": "削除に失敗しました！"
+}
