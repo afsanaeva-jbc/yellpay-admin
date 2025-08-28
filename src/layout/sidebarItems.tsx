@@ -83,7 +83,7 @@ export const SideBarItems = (): SideBarItem[] => {
     // Support Section
     {
       icon: <HelpCircle className="w-4 h-4"/>,
-      text: t("help_center"),
+      text: t("help"),
       route: '/help',
       section: 'support'
     },
@@ -91,7 +91,7 @@ export const SideBarItems = (): SideBarItem[] => {
      {
       icon: <ImExit className="w-4 h-4"   onClick={handleLogout}/>,
       text: t("logout"),
-      route: '/help',
+      route: '/logout',
       section: 'support'
     }
   ];

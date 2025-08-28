@@ -1,5 +1,5 @@
 import { alpha, createTheme } from "@mui/material/styles";
-import "@fontsource/noto-sans"
+// import "@fontsource/noto-sans"
 
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
