@@ -46,6 +46,22 @@ const MerchantPage: React.FC = () => {
       email: "reservations@bellavista.com",
       status: "inactive",
     },
+     {
+      id: 4,
+      name: "Bella Vista Restaurant",
+      description: "Authentic Italian cuisine with a mo...",
+      businessType: "Restaurant",
+      email: "reservations@bellavista.com",
+      status: "inactive",
+    },
+    {
+      id: 5,
+      name: "Tech Solutions Inc.",
+      description: "Leading provider of IT solutions and...",
+      businessType: "Service",
+      email: "contact@techsolutions.com",
+      status: "active",
+    },
   ];
 
   // Apply filters to data
