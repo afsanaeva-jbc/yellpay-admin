@@ -85,19 +85,22 @@ const MerchantPage: React.FC = () => {
     {
       key: "name" as const,
       label: "NAME",
-      width: "w-80",
+      width: "25%",
     },
     {
       key: "businessType" as const,
       label: "BUSINESS TYPE",
+       width: "25%",
     },
     {
       key: "email" as const,
       label: "EMAIL",
+      width: "25%",
     },
     {
       key: "status" as const,
       label: "STATUS",
+      width: "25%",
     },
   ];
 
@@ -181,26 +184,26 @@ const MerchantPage: React.FC = () => {
     <button
       key="view"
       onClick={() => handleView(merchant)}
-      className="p-2 text-gray-400 hover:text-blue-600 transition-colors rounded-md hover:bg-blue-50"
+      className="p-2 text-black-700 hover:text-blue-600 transition-colors rounded-md hover:bg-blue-50"
       title="View merchant"
     >
-      <FiEye className="w-4 h-4" />
+      <FiEye className="w-4.5 h-4.5" />
     </button>,
     <button
       key="edit"
       onClick={() => handleEdit(merchant)}
-      className="p-2 text-gray-400 hover:text-green-600 transition-colors rounded-md hover:bg-green-50"
+      className="p-2 text-black-700 hover:text-green-600 transition-colors rounded-md hover:bg-green-50"
       title="Edit merchant"
     >
-      <FiEdit className="w-4 h-4" />
+      <FiEdit className="w-4.5 h-4.5" />
     </button>,
     <button
       key="delete"
       onClick={() => handleDelete(merchant)}
-      className="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-md hover:bg-red-50"
+      className="p-2 text-black-700 hover:text-red-600 transition-colors rounded-md hover:bg-red-50"
       title="Delete merchant"
     >
-      <FiTrash2 className="w-4 h-4" />
+      <FiTrash2 className="w-4.5 h-4.5" />
     </button>,
   ];
 

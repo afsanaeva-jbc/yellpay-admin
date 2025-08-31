@@ -247,7 +247,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
 
       case "businessType":
         return (
-          <span className="text-sm text-gray-600 capitalize">
+          <span className="inline-flex items-center px-2 py-0 text-xs text-gray-600 capitalize border border-gray-300 rounded-md font-semibold">
             {item.businessType || "-"}
           </span>
         );
@@ -339,13 +339,13 @@ const DynamicTable = <T extends DataTableCommonBase>({
               {columns.map((column, index) => (
                 <TableHeaderCell
                   key={index}
-                  className={`text-left font-medium text-gray-500 uppercase text-xs tracking-wider ${column.width || ""}`}
+                  className={`text-left font-semibold text-gray-500  uppercase text-xs tracking-wider ${column.width || ""}`}
                 >
                   {column.label}
                 </TableHeaderCell>
               ))}
               {actions && (
-                <TableHeaderCell className="text-left font-medium text-gray-500 uppercase text-xs tracking-wider">
+                <TableHeaderCell className="text-center font-semibold text-gray-500 uppercase text-xs tracking-wider">
                   Actions
                 </TableHeaderCell>
               )}
@@ -414,7 +414,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
                     <TableCell className="px-6 py-4">
                       <div className="flex gap-1">
                         {actions(item).map((action, actionIdx) => (
-                          <div key={actionIdx} className="flex items-center">
+                          <div key={actionIdx} className="flex items-center ">
                             {action}
                           </div>
                         ))}
