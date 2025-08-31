@@ -1,43 +1,42 @@
 import { LuBuilding2 } from "react-icons/lu";
-import DynamicCard from "../../components/common/Card";
+import DynamicCard, { ActivityItem, ActionItem } from "../../components/common/DynamicCard";
 import {
   Users,
-  DollarSign,
-  BarChart3,
+  BarChart3,TrendingUp
 } from "lucide-react";
 
 export default function DashboardCards() {
   // Sample data for activity card
-  const recentActivities = [
+  const recentActivities: ActivityItem[] = [
     {
       title: "New merchant registration: TechCorp Solutions",
       time: "2 minutes ago",
-      status: "new",
+      status: "new" as const,
     },
     {
       title: "Payment processed for Order #12845",
       time: "5 minutes ago",
-      status: "completed",
+      status: "completed" as const,
     },
     {
       title: "User profile updated: john.doe@example.com",
       time: "12 minutes ago",
-      status: "updated",
+      status: "updated" as const,
     },
     {
       title: "New subscription activated: Premium Plan",
       time: "1 hour ago",
-      status: "new",
+      status: "new" as const,
     },
     {
       title: "System maintenance completed",
       time: "3 hours ago",
-      status: "completed",
+      status: "completed" as const,
     },
   ];
 
   // Sample data for actions card
-  const quickActions = [
+  const quickActions: ActionItem[] = [
     {
       title: "Add New Merchant",
       description: "Register a new merchant in the system",
@@ -80,7 +79,7 @@ export default function DashboardCards() {
           value="$45,231"
           change="+23%"
           changeType="positive"
-          icon={<DollarSign className="w-5 h-5" />}
+          icon={<TrendingUp className="w-5 h-5" />}
         />
 
         <DynamicCard
