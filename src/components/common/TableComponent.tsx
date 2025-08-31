@@ -273,7 +273,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
                   <select
                     value={statusFilter.value}
                     onChange={(e) => statusFilter.onChange(e.target.value)}
-                    className="appearance-none bg-gray-100 border-none rounded-lg px-4 py-2.5 pr-8 text-sm focus:ring-2  focus:ring-red-500 focus:border-transparent outline-none"
+                    className="appearance-none bg-gray-100 border-none rounded-lg px-6 py-2.5 pr-8 text-sm focus:ring-2  focus:ring-red-500 focus:border-transparent outline-none"
                   >
                     <option value="">{statusFilter.placeholder || "All Status"}</option>
                     {statusFilter.options.map(option => (
