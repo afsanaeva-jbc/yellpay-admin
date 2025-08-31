@@ -118,6 +118,19 @@ const MerchantPage: React.FC = () => {
     console.log("Filter by type:", type);
   };
 
+  // Clear filter functions
+  const handleClearStatusFilter = () => {
+    setStatusFilter("");
+    setCurrentPage(1);
+    console.log("Status filter cleared");
+  };
+
+  const handleClearTypeFilter = () => {
+    setTypeFilter("");
+    setCurrentPage(1);
+    console.log("Type filter cleared");
+  };
+
   const handleAddNew = () => {
     // Navigate to add merchant page or open modal
     console.log("Add new merchant clicked");
@@ -197,12 +210,14 @@ const MerchantPage: React.FC = () => {
           options: statusOptions,
           value: statusFilter,
           onChange: handleStatusFilter,
+          onClear: handleClearStatusFilter,
           placeholder: "All Status",
         }}
         typeFilter={{
           options: typeOptions,
           value: typeFilter,
           onChange: handleTypeFilter,
+          onClear: handleClearTypeFilter,
           placeholder: "All Types",
         }}
         showAddButton={true}

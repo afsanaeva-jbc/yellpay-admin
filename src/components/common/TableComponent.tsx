@@ -104,12 +104,14 @@ type DynamicTableProps<T extends DataTableCommonBase> = {
     options: FilterOption[];
     value: string;
     onChange: (value: string) => void;
+    onClear?: () => void;
     placeholder?: string;
   };
   typeFilter?: {
     options: FilterOption[];
     value: string;
     onChange: (value: string) => void;
+    onClear?: () => void;
     placeholder?: string;
   };
 
@@ -307,7 +309,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
                     options={statusFilter.options ?? []}
                     selectedValue={statusFilter.value}
                     onChange={(value) => statusFilter.onChange(value)}
-                    onClear={typeof clearStatus === "function" ? clearStatus : undefined}
+                    onClear={statusFilter.onClear}
                   />
                 </div>
               )}
@@ -315,12 +317,12 @@ const DynamicTable = <T extends DataTableCommonBase>({
               {typeFilter && (
                 <div className="relative min-w-[140px]">
                   <SelectInput
-                    placeholder={typeFilter.placeholder || "All Status"}
+                    placeholder={typeFilter.placeholder || "All Types"}
                     width="10rem"
                     options={typeFilter.options ?? []}
                     selectedValue={typeFilter.value}
                     onChange={(value) => typeFilter.onChange(value)}
-                     onClear={typeof clearStatus === "function" ? clearType : undefined}
+                    onClear={typeFilter.onClear}
                   />
                 </div>
               )}
