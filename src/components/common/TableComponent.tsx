@@ -1,33 +1,61 @@
 import React, { useState } from "react";
 import { GoPeople } from "react-icons/go";
 import { FiSearch, FiPlus } from "react-icons/fi";
+import SelectInput from "./SelectDropdown";
 
-// Simple Table Components (since the imported ones aren't available)
-const Table = ({ children, ...props }: React.TableHTMLAttributes<HTMLTableElement>) => (
+const Table = ({
+  children,
+  ...props
+}: React.TableHTMLAttributes<HTMLTableElement>) => (
   <table className="min-w-full divide-y divide-gray-200" {...props}>
     {children}
   </table>
 );
 
-const TableHead = ({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+const TableHead = ({
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLTableSectionElement>) => (
   <thead {...props}>{children}</thead>
 );
 
-const TableBody = ({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
-  <tbody className="bg-white divide-y divide-gray-200" {...props}>{children}</tbody>
+const TableBody = ({
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLTableSectionElement>) => (
+  <tbody className="bg-white divide-y divide-gray-200" {...props}>
+    {children}
+  </tbody>
 );
 
-const TableRow = ({ children, className = "", ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-  <tr className={className} {...props}>{children}</tr>
+const TableRow = ({
+  children,
+  className = "",
+  ...props
+}: React.HTMLAttributes<HTMLTableRowElement>) => (
+  <tr className={className} {...props}>
+    {children}
+  </tr>
 );
 
-const TableHeaderCell = ({ children, className = "", ...props }: React.ThHTMLAttributes<HTMLTableHeaderCellElement>) => (
-  <th className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${className}`} {...props}>
+const TableHeaderCell = ({
+  children,
+  className = "",
+  ...props
+}: React.ThHTMLAttributes<HTMLTableHeaderCellElement>) => (
+  <th
+    className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${className}`}
+    {...props}
+  >
     {children}
   </th>
 );
 
-const TableCell = ({ children, className = "", ...props }: React.TdHTMLAttributes<HTMLTableDataCellElement>) => (
+const TableCell = ({
+  children,
+  className = "",
+  ...props
+}: React.TdHTMLAttributes<HTMLTableDataCellElement>) => (
   <td className={`px-6 py-4 whitespace-nowrap ${className}`} {...props}>
     {children}
   </td>
@@ -39,7 +67,7 @@ type DataTableCommonBase = {
   name?: string;
   description?: string;
   email?: string;
-  status?: 'active' | 'inactive';
+  status?: "active" | "inactive";
   businessType?: string;
 };
 
@@ -61,15 +89,15 @@ type DynamicTableProps<T extends DataTableCommonBase> = {
   columns: TableColumn<T>[];
   data: T[];
   loading?: boolean;
-  
+
   // Header props
   title?: string;
-  
+
   // Search props
   showSearch?: boolean;
   searchPlaceholder?: string;
   onSearch?: (searchTerm: string) => void;
-  
+
   // Filter props
   showFilters?: boolean;
   statusFilter?: {
@@ -84,15 +112,15 @@ type DynamicTableProps<T extends DataTableCommonBase> = {
     onChange: (value: string) => void;
     placeholder?: string;
   };
-  
+
   // Add button props
   showAddButton?: boolean;
   addButtonText?: string;
   onAddNew?: () => void;
-  
+
   // Action props
   actions?: (item: T) => React.ReactNode[];
-  
+
   // Pagination props
   showPagination?: boolean;
   currentPage?: number;
@@ -100,7 +128,7 @@ type DynamicTableProps<T extends DataTableCommonBase> = {
   totalItems?: number;
   itemsPerPage?: number;
   onPageChange?: (page: number) => void;
-  
+
   // Empty state
   emptyStateText?: string;
   emptyStateIcon?: React.ReactNode;
@@ -128,7 +156,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
   itemsPerPage = 10,
   onPageChange,
   emptyStateText = "No data found",
-  emptyStateIcon
+  emptyStateIcon,
 }: DynamicTableProps<T>): React.ReactElement => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -137,13 +165,13 @@ const DynamicTable = <T extends DataTableCommonBase>({
     if (!name) return "bg-gray-500";
     const colors = [
       "bg-pink-500",
-      "bg-orange-500", 
+      "bg-orange-500",
       "bg-purple-500",
       "bg-blue-500",
       "bg-green-500",
       "bg-red-500",
       "bg-indigo-500",
-      "bg-yellow-500"
+      "bg-yellow-500",
     ];
     const index = name.charCodeAt(0) % colors.length;
     return colors[index];
@@ -153,7 +181,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
     if (!name) return "?";
     return name
       .split(" ")
-      .map(word => word.charAt(0))
+      .map((word) => word.charAt(0))
       .join("")
       .toUpperCase()
       .slice(0, 2);
@@ -166,14 +194,16 @@ const DynamicTable = <T extends DataTableCommonBase>({
   };
 
   const renderStatusBadge = (status?: string) => {
-    const isActive = status?.toLowerCase() === 'active';
+    const isActive = status?.toLowerCase() === "active";
     return (
-      <span className={`inline-flex items-center px-3 py-0.5 rounded-md text-xs font-medium ${
-        isActive 
-          ? 'bg-green-100 text-green-800 font-semibold' 
-          : 'bg-red-100 text-red-500 font-semibold'
-      }`}>
-        {status || 'unknown'}
+      <span
+        className={`inline-flex items-center px-3 py-0.5 rounded-md text-xs font-medium ${
+          isActive
+            ? "bg-green-100 text-green-800 font-semibold"
+            : "bg-red-100 text-red-500 font-semibold"
+        }`}
+      >
+        {status || "unknown"}
       </span>
     );
   };
@@ -184,10 +214,12 @@ const DynamicTable = <T extends DataTableCommonBase>({
     }
 
     switch (column.key) {
-      case 'name':
+      case "name":
         return (
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 ${getAvatarColor(item.name)} text-white rounded-full flex items-center justify-center font-semibold text-sm`}>
+            <div
+              className={`w-10 h-10 ${getAvatarColor(item.name)} text-white rounded-full flex items-center justify-center font-semibold text-sm`}
+            >
               {getInitials(item.name)}
             </div>
             <div className="min-w-0 flex-1">
@@ -202,41 +234,40 @@ const DynamicTable = <T extends DataTableCommonBase>({
             </div>
           </div>
         );
-      
-      case 'status':
+
+      case "status":
         return renderStatusBadge(item.status);
-      
-      case 'email':
+
+      case "email":
         return (
-          <span className="text-sm text-gray-900">
-            {item.email || "-"}
-          </span>
+          <span className="text-sm text-gray-900">{item.email || "-"}</span>
         );
-      
-      case 'businessType':
+
+      case "businessType":
         return (
           <span className="text-sm text-gray-600 capitalize">
             {item.businessType || "-"}
           </span>
         );
-      
-      default:
-        { const value = item[column.key];
+
+      default: {
+        const value = item[column.key];
         if (typeof value === "object" && value !== null) {
           return String((value as unknown as { name: string })?.name ?? "-");
         }
-        return String(value || "-"); }
+        return String(value || "-");
+      }
     }
   };
 
   const skeletonCount = loading && data.length > 0 ? data.length : 5;
-
+  
   return (
-    <div >
+    <div>
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6 ">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6">
         <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
-        
+
         {showAddButton && (
           <button
             onClick={onAddNew}
@@ -250,17 +281,17 @@ const DynamicTable = <T extends DataTableCommonBase>({
 
       {/* Filters and Search Section */}
       {(showSearch || showFilters) && (
-        <div className="flex flex-col sm:flex-row gap-4 p-6  bg-white rounded-lg border border-gray-200">
+        <div className="flex flex-col sm:flex-row gap-6 p-6 bg-white rounded-lg border border-gray-200">
           {/* Search Box */}
           {showSearch && (
-            <div className="relative flex-1">
+            <div className="relative flex-1 max-w-md">
               <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder={searchPlaceholder}
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-90 pl-10 pr-4 py-2.5 bg-gray-100 border-none rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-sm"
+                className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-none rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-sm transition-colors"
               />
             </div>
           )}
@@ -269,38 +300,28 @@ const DynamicTable = <T extends DataTableCommonBase>({
           {showFilters && (
             <div className="flex gap-3 ">
               {statusFilter && (
-                <div className="relative ">
-                  <select
-                    value={statusFilter.value}
-                    onChange={(e) => statusFilter.onChange(e.target.value)}
-                    className="appearance-none bg-gray-100 border-none rounded-lg px-6 py-2.5 pr-8 text-sm focus:ring-2  focus:ring-red-500 focus:border-transparent outline-none"
-                  >
-                    <option value="">{statusFilter.placeholder || "All Status"}</option>
-                    {statusFilter.options.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {/* <FiChevronDown className="absolute right-3 top-1/2  w-4 h-4 pointer-events-none" /> */}
+                <div className="relative min-w-[140px]">
+                  <SelectInput
+                    placeholder={statusFilter.placeholder || "All Status"}
+                    width="10rem"
+                    options={statusFilter.options ?? []}
+                    selectedValue={statusFilter.value}
+                    onChange={(value) => statusFilter.onChange(value)}
+                    onClear={typeof clearStatus === "function" ? clearStatus : undefined}
+                  />
                 </div>
               )}
 
               {typeFilter && (
-                <div className="relative">
-                  <select
-                    value={typeFilter.value}
-                    onChange={(e) => typeFilter.onChange(e.target.value)}
-                    className="appearance-none bg-gray-100 border-none rounded-lg px-6 py-2.5 pr-8 text-sm focus:ring-2  focus:ring-red-500 focus:border-transparent outline-none"
-                  >
-                    <option value="">{typeFilter.placeholder || "All Types"}</option>
-                    {typeFilter.options.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {/* <FiChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" /> */}
+                <div className="relative min-w-[140px]">
+                  <SelectInput
+                    placeholder={typeFilter.placeholder || "All Status"}
+                    width="10rem"
+                    options={typeFilter.options ?? []}
+                    selectedValue={typeFilter.value}
+                    onChange={(value) => typeFilter.onChange(value)}
+                     onClear={typeof clearStatus === "function" ? clearType : undefined}
+                  />
                 </div>
               )}
             </div>
@@ -312,11 +333,11 @@ const DynamicTable = <T extends DataTableCommonBase>({
       <div className="overflow-hidden rounded-lg border border-gray-200 mt-10 mb-3">
         <Table>
           <TableHead className="bg-gray-50 font-semibold">
-            <TableRow >
+            <TableRow>
               {columns.map((column, index) => (
-                <TableHeaderCell 
-                  key={index} 
-                  className={`text-left font-medium text-gray-500 uppercase text-xs tracking-wider ${column.width || ''}`}
+                <TableHeaderCell
+                  key={index}
+                  className={`text-left font-medium text-gray-500 uppercase text-xs tracking-wider ${column.width || ""}`}
                 >
                   {column.label}
                 </TableHeaderCell>
@@ -366,17 +387,22 @@ const DynamicTable = <T extends DataTableCommonBase>({
                   className="text-center px-6 py-12 text-gray-500"
                 >
                   <div className="flex flex-col items-center gap-2">
-                    {emptyStateIcon || <GoPeople className="text-4xl text-gray-300" />}
+                    {emptyStateIcon || (
+                      <GoPeople className="text-4xl text-gray-300" />
+                    )}
                     <span>{emptyStateText}</span>
                   </div>
                 </TableCell>
               </TableRow>
             ) : (
               data.map((item, index) => (
-                <TableRow key={item.id || index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                <TableRow
+                  key={item.id || index}
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                >
                   {columns.map((column, cellIndex) => (
                     <TableCell
-                      className={`px-6 py-4 text-sm ${column.width || ''}`}
+                      className={`px-6 py-4 text-sm ${column.width || ""}`}
                       key={cellIndex}
                     >
                       {renderCell(item, column)}
@@ -401,12 +427,14 @@ const DynamicTable = <T extends DataTableCommonBase>({
       </div>
 
       {/* Pagination */}
-      {showPagination &&  (
+      {showPagination && (
         <div className="flex items-center justify-between px-6 py-1  bg-white">
           <div className="text-sm text-gray-500">
-            Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} {title.toLowerCase()}
+            Showing {(currentPage - 1) * itemsPerPage + 1}-
+            {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
+            {title.toLowerCase()}
           </div>
-          
+
           <div className="flex gap-2">
             <button
               onClick={() => onPageChange?.(currentPage - 1)}
@@ -415,26 +443,26 @@ const DynamicTable = <T extends DataTableCommonBase>({
             >
               Previous
             </button>
-            
+
             {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
               const page = currentPage <= 3 ? i + 1 : currentPage - 2 + i;
               if (page > totalPages) return null;
-              
+
               return (
                 <button
                   key={page}
                   onClick={() => onPageChange?.(page)}
                   className={`px-3 py-2 text-sm font-medium rounded-lg ${
                     page === currentPage
-                      ? 'bg-red-600 text-white'
-                      : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
+                      ? "bg-red-600 text-white"
+                      : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50"
                   }`}
                 >
                   {page}
                 </button>
               );
             })}
-            
+
             <button
               onClick={() => onPageChange?.(currentPage + 1)}
               disabled={currentPage >= totalPages}

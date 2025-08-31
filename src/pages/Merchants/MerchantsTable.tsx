@@ -189,11 +189,9 @@ const MerchantPage: React.FC = () => {
         columns={merchantColumns}
         data={currentData}
         loading={loading}
-        // Search configuration
         showSearch={true}
         searchPlaceholder="Search merchants..."
         onSearch={handleSearch}
-        // Filter configuration
         showFilters={true}
         statusFilter={{
           options: statusOptions,
@@ -207,20 +205,16 @@ const MerchantPage: React.FC = () => {
           onChange: handleTypeFilter,
           placeholder: "All Types",
         }}
-        // Add button configuration
         showAddButton={true}
         addButtonText="Add New Merchant"
         onAddNew={handleAddNew}
-        // Actions configuration
         actions={getActions}
-        // Pagination configuration
         showPagination={true}
         currentPage={currentPage}
         totalPages={totalPages}
         totalItems={totalItems}
         itemsPerPage={10}
         onPageChange={handlePageChange}
-        // Empty state
         emptyStateText="No merchants found"
       />
     </div>
