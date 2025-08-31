@@ -112,9 +112,10 @@ const SideBar = ({ open }: SideBarProps) => {
               borderRadius: "6px",
               mx: 1,
               ml:0,
+              pl:1,
               mr: isSelected ? 2.5 : 1,
               mb: 0.5,
-              backgroundColor: isSelected ? "#e5e7eb" : "transparent",
+              backgroundColor: isSelected ? "#f3f4f6" : "transparent",
               "&:hover": {
                 backgroundColor: isSelected ? "#e5e7eb" : "#f3f4f6",
               },
@@ -281,8 +282,8 @@ const SideBar = ({ open }: SideBarProps) => {
             sx={{
               px: 3,
               py: 1,
-              color: "#9ca3af",
-              fontWeight: 500,
+              color: "#6b7280",
+              fontWeight: 600,
               fontSize: "12px",
               letterSpacing: "0.05em",
             }}
@@ -301,8 +302,8 @@ const SideBar = ({ open }: SideBarProps) => {
                 sx={{
                   px: 3,
                   py: 1,
-                  color: "#9ca3af",
-                  fontWeight: 500,
+                  color: "#6b7280",
+                  fontWeight: 600,
                   fontSize: "12px",
                   letterSpacing: "0.05em",
                 }}
@@ -314,30 +315,7 @@ const SideBar = ({ open }: SideBarProps) => {
           </>
         )}
         <br />
-        {/* Documents Section */}
-        {/* {documentItems.length > 0 && (
-          <>
-            {open && (
-              <Typography
-                variant="caption"
-                sx={{
-                  px: 3,
-                  py: 1,
-                  color: "#9ca3af",
-                  fontWeight: 500,
-                  fontSize: "12px",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                Documents
-              </Typography>
-            )}
-            {renderMenuItems(
-              documentItems,
-              mainMenuItems.length + managementItems.length
-            )}
-          </>
-        )} */}
+
         {/* Support Section */}
         {supportItems.length > 0 && (
           <>
@@ -347,8 +325,8 @@ const SideBar = ({ open }: SideBarProps) => {
                 sx={{
                   px: 3,
                   py: 1,
-                  color: "#9ca3af",
-                  fontWeight: 500,
+                  color: "#6b7280",
+                  fontWeight: 600,
                   fontSize: "12px",
                   letterSpacing: "0.05em",
                 }}

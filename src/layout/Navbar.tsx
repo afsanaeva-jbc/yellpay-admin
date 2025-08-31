@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             aria-label="Toggle Sidebar"
             className="flex items-center justify-center w-8 h-8 text-gray-600  hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer"
           >
-            <TbLayoutSidebarLeftCollapse className="w-5 h-5" />
+            <TbLayoutSidebarLeftCollapse className="w-5 h-5" color="black"/>
           </button>
         
         </div>

@@ -2,7 +2,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import Dashboard from "../pages/Dashboard";
 import DocumentListPage from "../pages/DocumentListPage";
 import ChangePassword from "../pages/ChangePassword";
 import AdminForm from "../pages/AdminForm";
@@ -16,6 +16,7 @@ import NotFound from "../pages/NotFound";
 import CreateUserForm from "../pages/Admin/CreateUserForm";
 import EditUserForm from "../pages/Admin/EditUserForm";
 import Layout from "../layout";
+import Merchants from "../pages/Merchants";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "dashboard", element: <Dashboard /> },
+      { path: "merchants", element: <Merchants /> },
       { path: "doc-list", element: <DocumentListPage /> },
       // { path: "user-list", element: <ViewUserPage /> },
       { path: "change-password", element: <ChangePassword /> },
