@@ -121,7 +121,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({
   const renderActionsCard = (): React.ReactElement => (
     <div className={`${width} bg-white rounded-xl  border border-gray-200 p-6 hover:shadow-sm transition-all duration-200 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
         {icon && (
           <div className="text-gray-400">
             {icon}
@@ -136,11 +136,11 @@ const DynamicCard: React.FC<DynamicCardProps> = ({
           >
             <div className="flex items-start gap-3">
               <div className="flex-1">
-                <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                <h4 className="text-md font-semibold text-gray-900 ">
                   {action.title}
                 </h4>
                 {action.description && (
-                  <p className="text-xs text-gray-500 mt-1">{action.description}</p>
+                  <p className="text-sm text-gray-500 mt-1">{action.description}</p>
                 )}
               </div>
             </div>

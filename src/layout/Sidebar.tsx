@@ -31,7 +31,7 @@ const SideBar = ({ open }: SideBarProps) => {
     route: string | undefined,
     hasChildren: boolean,
     name: string,
-    type: string
+    type: string,
   ) => {
     if (hasChildren) {
       setExpandedIndex(expandedIndex === index ? null : index);
@@ -47,7 +47,7 @@ const SideBar = ({ open }: SideBarProps) => {
 
   const handleChildListItemClick = (
     parentIndex: number,
-    route: string | undefined
+    route: string | undefined,
   ) => {
     if (route) {
       navigate(route);
@@ -64,7 +64,7 @@ const SideBar = ({ open }: SideBarProps) => {
 
       if (item.children && item.children.length > 0) {
         const childMatch = item.children.find(
-          (child) => child.route === location.pathname
+          (child) => child.route === location.pathname,
         );
         if (childMatch) {
           return { parentIndex: index, isChild: true };
@@ -89,13 +89,13 @@ const SideBar = ({ open }: SideBarProps) => {
   // Group items by section
   const mainMenuItems = sideBarItems.filter((item) => item.section === "main");
   const managementItems = sideBarItems.filter(
-    (item) => item.section === "management"
+    (item) => item.section === "management",
   );
   const supportItems = sideBarItems.filter(
-    (item) => item.section === "support"
+    (item) => item.section === "support",
   );
   const documentItems = sideBarItems.filter(
-    (item) => item.section === "documents"
+    (item) => item.section === "documents",
   );
 
   const renderMenuItems = (items: typeof sideBarItems, startIndex: number) => {
@@ -126,7 +126,7 @@ const SideBar = ({ open }: SideBarProps) => {
                 item.route,
                 !!item.children,
                 item?.name ?? "",
-                item?.type ?? ""
+                item?.type ?? "",
               )
             }
           >
@@ -278,7 +278,7 @@ const SideBar = ({ open }: SideBarProps) => {
           <Typography
             variant="caption"
             sx={{
-              px: 3,
+              px: 1,
               py: 1,
               color: "#6b7280",
               fontWeight: 600,
@@ -298,7 +298,7 @@ const SideBar = ({ open }: SideBarProps) => {
               <Typography
                 variant="caption"
                 sx={{
-                  px: 3,
+                  px: 1,
                   py: 1,
                   color: "#6b7280",
                   fontWeight: 600,
@@ -321,7 +321,7 @@ const SideBar = ({ open }: SideBarProps) => {
               <Typography
                 variant="caption"
                 sx={{
-                  px: 3,
+                  px: 1,
                   py: 1,
                   color: "#6b7280",
                   fontWeight: 600,
@@ -336,13 +336,12 @@ const SideBar = ({ open }: SideBarProps) => {
               supportItems,
               mainMenuItems.length +
                 managementItems.length +
-                documentItems.length
+                documentItems.length,
             )}
           </>
         )}
       </List>
-      <Box
-      >
+      <Box>
         {open ? (
           <Typography
             variant="caption"

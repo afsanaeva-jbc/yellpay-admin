@@ -23,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* Sidebar*/}
       <SideBar open={sidebarOpen} />
       
-      {/* Main content area that adjusts to sidebar */}
+      {/* Main content adjusts to sidebar */}
       <Box
         sx={{
           ml: sidebarOpen ? 30 : 7,
@@ -31,14 +31,14 @@ const Layout = ({ children }: LayoutProps) => {
           minHeight: "100vh",
         }}
       >
-        {/* Navbar - positioned relative to the main content area */}
+        {/* Navbar */}
         <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
-        {/* Header/Title area */}
+        {/* Header */}
         <Box
           sx={{
             backgroundColor: theme.palette.grey[300],
-            py: 2,
+            // py: 2,
             px: 6,
           }}
         >
@@ -50,9 +50,8 @@ const Layout = ({ children }: LayoutProps) => {
         {/* Main content */}
         <Box
           sx={{
-            pb: 11.625,
-            pt: 4,
-            pl: 6, // Add some padding for content
+            pb: 5,
+            pl: 3,
             pr: 3,
             minHeight: `calc(100vh - 13.3rem)`,
           }}
