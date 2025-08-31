@@ -12,7 +12,6 @@
     "upload_photo": "Upload Photo",
     "photo_path": "PNG, JPG, or WEBP (max 2MB)",
 
-
     "name": "Name",
     "furigana": "Furigana Name",
     "email": "Email",
@@ -40,7 +39,6 @@
     "delete": "Delete",
     "edit": "Edit",
 
-
     "student": "Student",
     "teacher": "Teacher",
     "admin": "Admin",
@@ -55,9 +53,9 @@
     "cancel": "Cancel",
     "save": "Save",
     "contact": "Contact Information",
-    "delete_modal": "Are you sure you want to delete this item?",
-    "delete_confirm" : "Yes, I'm sure",
-    "delete_cancel": "No, cancel",
+    "delete_modal": "Are you sure you want to delete this item? This action cannot be undone.",
+    "delete_confirm" : "Delete",
+    "delete_cancel": "Cancel",
     "csv_error_details": "View Error Details",
     "csv_import_failed": "Import Failed - See Error Details"
   }

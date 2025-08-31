@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiEye, FiEdit, FiTrash2 } from "react-icons/fi";
 import DynamicTable from "../../components/common/TableComponent";
+import DeleteModal from "../../components/common/DeleteModal"; // Adjust path as needed
 
 // Merchant data type
 type Merchant = {
@@ -19,9 +20,13 @@ const MerchantPage: React.FC = () => {
   const [typeFilter, setTypeFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading] = useState(false);
+  
+  // Delete modal state
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [merchantToDelete, setMerchantToDelete] = useState<Merchant | null>(null);
 
   // Sample merchant data
-  const merchantData: Merchant[] = [
+  const [merchantData, setMerchantData] = useState<Merchant[]>([
     {
       id: 1,
       name: "Tech Solutions Inc.",
@@ -46,7 +51,7 @@ const MerchantPage: React.FC = () => {
       email: "reservations@bellavista.com",
       status: "inactive",
     },
-     {
+    {
       id: 4,
       name: "Bella Vista Restaurant",
       description: "Authentic Italian cuisine with a mo...",
@@ -62,7 +67,7 @@ const MerchantPage: React.FC = () => {
       email: "contact@techsolutions.com",
       status: "active",
     },
-  ];
+  ]);
 
   // Apply filters to data
   const filteredData = merchantData.filter((merchant) => {
@@ -90,7 +95,7 @@ const MerchantPage: React.FC = () => {
     {
       key: "businessType" as const,
       label: "BUSINESS TYPE",
-       width: "25%",
+      width: "25%",
     },
     {
       key: "email" as const,
@@ -172,11 +177,31 @@ const MerchantPage: React.FC = () => {
   };
 
   const handleDelete = (merchant: Merchant) => {
-    console.log("Delete merchant:", merchant);
-    if (confirm(`Are you sure you want to delete ${merchant.name}?`)) {
-      alert(`Deleting merchant: ${merchant.name}`);
-      // Implement delete logic here
+    setMerchantToDelete(merchant);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (merchantToDelete) {
+      console.log("Deleting merchant:", merchantToDelete);
+      
+      // Remove merchant from the data
+      setMerchantData(prevData => 
+        prevData.filter(merchant => merchant.id !== merchantToDelete.id)
+      );
+      
+      // Close modal and reset state
+      setIsDeleteModalOpen(false);
+      setMerchantToDelete(null);
+      
+      // Optional: Show success message
+      alert(`Merchant "${merchantToDelete.name}" has been deleted successfully`);
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteModalOpen(false);
+    setMerchantToDelete(null);
   };
 
   // Action buttons for each row
@@ -250,6 +275,14 @@ const MerchantPage: React.FC = () => {
         itemsPerPage={10}
         onPageChange={handlePageChange}
         emptyStateText="No merchants found"
+      />
+      
+      {/* Delete Modal */}
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        merchantName={merchantToDelete?.name}
       />
     </div>
   );
