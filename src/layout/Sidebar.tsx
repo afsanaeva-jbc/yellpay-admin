@@ -111,8 +111,8 @@ const SideBar = ({ open }: SideBarProps) => {
               position: "relative",
               borderRadius: "6px",
               mx: 1,
-              ml:0,
-              pl:1,
+              ml: 0,
+              pl: 1,
               mr: isSelected ? 2.5 : 1,
               mb: 0.5,
               backgroundColor: isSelected ? "#f3f4f6" : "transparent",
@@ -135,7 +135,6 @@ const SideBar = ({ open }: SideBarProps) => {
                 color: isSelected ? "#111827" : "#1f2937",
                 minWidth: "15px",
                 mr: open ? 2 : 0,
-                
               }}
             >
               {item.icon}
@@ -147,7 +146,6 @@ const SideBar = ({ open }: SideBarProps) => {
                   color: isSelected ? "#111827" : "#1f2937",
                   fontWeight: isSelected ? 600 : 500,
                   fontSize: "14px",
-                  
                 }}
               >
                 {item.text}
@@ -273,7 +271,7 @@ const SideBar = ({ open }: SideBarProps) => {
         )}
       </Box>
 
-      <List sx={{ mt: 1, px: 0 ,mx:2}}>
+      <List sx={{ mt: 1, px: 0, mx: 2 }}>
         {/* Main Menu Section */}
         <br />
         {open && (
@@ -343,6 +341,30 @@ const SideBar = ({ open }: SideBarProps) => {
           </>
         )}
       </List>
+      <Box
+      >
+        {open ? (
+          <Typography
+            variant="caption"
+            sx={{
+              position: "absolute",
+              borderTop: "1px solid #e5e7eb",
+              bottom: 0,
+              left: 0,
+              px: 2,
+              py: 1,
+              color: "#6b7280",
+              fontWeight: 500,
+              fontSize: "13px",
+              letterSpacing: "0.05em",
+            }}
+          >
+            v1.0.0 - Merchant Portal
+          </Typography>
+        ) : (
+          <Typography variant="caption"></Typography>
+        )}
+      </Box>
     </Drawer>
   );
 };

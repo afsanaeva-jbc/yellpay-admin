@@ -21,12 +21,11 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
 
   return (
     <nav className="mx-auto">
-      <div 
-        className="relative flex h-16 items-center justify-between" 
-        style={{ 
-          
-          padding: '0 1rem',
-          borderBottom: '1px solid #e5e7eb' 
+      <div
+        className="relative flex h-16 items-center justify-between"
+        style={{
+          padding: "0 1rem",
+          borderBottom: "1px solid #e5e7eb",
         }}
       >
         <div className="flex items-center gap-4">
@@ -36,9 +35,10 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             aria-label="Toggle Sidebar"
             className="flex items-center justify-center w-8 h-8 text-gray-600  hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer"
           >
-            <TbLayoutSidebarLeftCollapse className="w-5 h-5" color="black"/>
+            <div className="h-full border-r border-gray-300 flex items-center ">
+              <TbLayoutSidebarLeftCollapse className="w-6 h-6 text-black mx-4" />
+            </div>
           </button>
-        
         </div>
 
         {/* Language Dropdown */}
