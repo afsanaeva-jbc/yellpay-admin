@@ -309,7 +309,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
       )}
 
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-gray-200 my-10">
+      <div className="overflow-hidden rounded-lg border border-gray-200 mt-10 mb-3">
         <Table>
           <TableHead className="bg-gray-50 font-semibold">
             <TableRow >
@@ -401,8 +401,8 @@ const DynamicTable = <T extends DataTableCommonBase>({
       </div>
 
       {/* Pagination */}
-      {showPagination && totalPages > 1 && (
-        <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-white">
+      {showPagination &&  (
+        <div className="flex items-center justify-between px-6 py-1  bg-white">
           <div className="text-sm text-gray-500">
             Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} {title.toLowerCase()}
           </div>
@@ -426,7 +426,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
                   onClick={() => onPageChange?.(page)}
                   className={`px-3 py-2 text-sm font-medium rounded-lg ${
                     page === currentPage
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-red-600 text-white'
                       : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
                   }`}
                 >

@@ -214,7 +214,7 @@ const MerchantPage: React.FC = () => {
         // Actions configuration
         actions={getActions}
         // Pagination configuration
-        showPagination={totalItems > 10}
+        showPagination={true}
         currentPage={currentPage}
         totalPages={totalPages}
         totalItems={totalItems}
