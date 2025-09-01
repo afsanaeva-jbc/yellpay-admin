@@ -218,7 +218,7 @@ const CreateMerchantForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 px-4">
+    <div className="pt-10 px-4">
       {loading && <Loading />}
       <DynamicForm
         config={createMerchantConfig}

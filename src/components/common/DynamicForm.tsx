@@ -1,51 +1,65 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, Control, FieldErrors } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import SelectInput from "./SelectDropdown";
 
-// Form data type
-export interface FormData {
-  [key: string]: any;
-}
-
-// Field configuration types
+// Base field config
 export interface BaseFieldConfig {
   name: string;
   label: string;
-  type: "text" | "email" | "tel" | "date" | "select" | "textarea" | "file" | "password" | "number";
+  type:
+    | "text"
+    | "email"
+    | "tel"
+    | "date"
+    | "select"
+    | "textarea"
+    | "file"
+    | "password"
+    | "number";
   placeholder?: string;
   required?: boolean;
   gridCol?: "full" | "half";
 }
 
+// Select field has options
 export interface SelectFieldConfig extends BaseFieldConfig {
   type: "select";
   options: { value: string | number; label: string }[];
 }
 
+// Textarea supports rows
 export interface TextAreaFieldConfig extends BaseFieldConfig {
   type: "textarea";
   rows?: number;
 }
 
+// File input supports accept
 export interface FileFieldConfig extends BaseFieldConfig {
   type: "file";
   accept?: string;
 }
 
+// Number input supports min/max
 export interface NumberFieldConfig extends BaseFieldConfig {
   type: "number";
   min?: number;
   max?: number;
 }
 
+// Union of all field types
 export type FieldConfig =
   | BaseFieldConfig
   | SelectFieldConfig
   | TextAreaFieldConfig
   | FileFieldConfig
   | NumberFieldConfig;
+
+// Dynamic form data structure
+export interface FormData {
+  [key: string]: unknown; // safer than `any`, but flexible for dynamic forms
+}
 
 // Form configuration
 export interface FormConfig {
@@ -55,20 +69,22 @@ export interface FormConfig {
   cancelButtonText?: string;
   onSubmit: (data: FormData) => void;
   onCancel?: () => void;
-  validationSchema?: yup.ObjectSchema<any>;
+  validationSchema?: yup.ObjectSchema<FormData>;
 }
 
-// Individual field components
+// --- Individual Field Components ---
+
+// Text & Number Field
 const TextField: React.FC<{
   field: BaseFieldConfig | NumberFieldConfig;
-  control: any;
-  errors: any;
+  control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 }> = ({ field, control, errors }) => {
   const hasError = !!errors[field.name];
-  const errorMessage = errors[field.name]?.message || "";
+  const errorMessage = errors[field.name]?.message as string | undefined;
 
   return (
-    <div className={field.gridCol === "half" ? "" : "col-span-2"}>
+    <div className={field.gridCol === "half" ? "col-span-1" : "col-span-2"}>
       <label className="block text-sm font-medium text-gray-700 mb-2">
         {field.label}
         {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -79,42 +95,58 @@ const TextField: React.FC<{
         render={({ field: controllerField }) => (
           <input
             type={field.type}
-            placeholder={field.placeholder || field.label}
-            value={controllerField.value || ""}
+            placeholder={
+              field.placeholder || `Enter ${field.label.toLowerCase()}`
+            }
+            value={
+              controllerField.value === null ||
+              controllerField.value === undefined ||
+              typeof controllerField.value === "object"
+                ? ""
+                : String(controllerField.value)
+            }
             onChange={controllerField.onChange}
             onBlur={controllerField.onBlur}
-            min={field.type === "number" ? (field as NumberFieldConfig).min : undefined}
-            max={field.type === "number" ? (field as NumberFieldConfig).max : undefined}
+            min={
+              field.type === "number"
+                ? (field as NumberFieldConfig).min
+                : undefined
+            }
+            max={
+              field.type === "number"
+                ? (field as NumberFieldConfig).max
+                : undefined
+            }
             className={`
               w-full px-3 py-2 border rounded-lg text-sm
               bg-gray-50 border-gray-200
               focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
-              ${hasError 
-                ? "border-red-500 bg-red-50 focus:ring-red-500" 
-                : "border-gray-200 focus:ring-red-500"
+              ${
+                hasError
+                  ? "border-red-500 bg-red-50 focus:ring-red-500"
+                  : "border-gray-200 focus:ring-red-500"
               }
               placeholder-gray-500
             `}
           />
         )}
       />
-      {hasError && (
-        <p className="mt-1 text-sm text-red-500">{errorMessage}</p>
-      )}
+      {hasError && <p className="mt-1 text-sm text-red-500">{errorMessage}</p>}
     </div>
   );
 };
 
+// Select Field
 const SelectField: React.FC<{
   field: SelectFieldConfig;
-  control: any;
-  errors: any;
+  control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 }> = ({ field, control, errors }) => {
   const hasError = !!errors[field.name];
-  const errorMessage = errors[field.name]?.message || "";
+  const errorMessage = errors[field.name]?.message as string | undefined;
 
   return (
-    <div className={field.gridCol === "half" ? "" : "col-span-2"}>
+    <div className={field.gridCol === "half" ? "col-span-1" : "col-span-2"}>
       <label className="block text-sm font-medium text-gray-700 mb-2">
         {field.label}
         {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -131,8 +163,8 @@ const SelectField: React.FC<{
             placeholder={
               field.placeholder || `Select ${field.label.toLowerCase()}`
             }
-             width="100%"
-            selectedValue={controllerField.value as string}
+            width="100%"
+            selectedValue={controllerField.value as string | undefined}
             onChange={controllerField.onChange}
             onClear={() => controllerField.onChange("")}
             showClearButton={true}
@@ -146,16 +178,17 @@ const SelectField: React.FC<{
   );
 };
 
+// Textarea Field
 const TextAreaField: React.FC<{
   field: TextAreaFieldConfig;
-  control: any;
-  errors: any;
+  control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 }> = ({ field, control, errors }) => {
   const hasError = !!errors[field.name];
-  const errorMessage = errors[field.name]?.message || "";
+  const errorMessage = errors[field.name]?.message as string | undefined;
 
   return (
-    <div className={field.gridCol === "half" ? "" : "col-span-2"}>
+    <div className={field.gridCol === "half" ? "col-span-1" : "col-span-2"}>
       <label className="block text-sm font-medium text-gray-700 mb-2">
         {field.label}
         {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -165,8 +198,16 @@ const TextAreaField: React.FC<{
         control={control}
         render={({ field: controllerField }) => (
           <textarea
-            placeholder={field.placeholder || field.label}
-            value={controllerField.value || ""}
+            placeholder={
+              field.placeholder || `Enter ${field.label.toLowerCase()}`
+            }
+            value={
+              controllerField.value === null ||
+              controllerField.value === undefined ||
+              typeof controllerField.value === "object"
+                ? ""
+                : String(controllerField.value)
+            }
             onChange={controllerField.onChange}
             onBlur={controllerField.onBlur}
             rows={field.rows || 4}
@@ -174,46 +215,46 @@ const TextAreaField: React.FC<{
               w-full px-3 py-2 border rounded-lg text-sm resize-none
               bg-gray-50 border-gray-200
               focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
-              ${hasError 
-                ? "border-red-500 bg-red-50 focus:ring-red-500" 
-                : "border-gray-200 focus:ring-red-500"
+              ${
+                hasError
+                  ? "border-red-500 bg-red-50 focus:ring-red-500"
+                  : "border-gray-200 focus:ring-red-500"
               }
               placeholder-gray-500
             `}
           />
         )}
       />
-      {hasError && (
-        <p className="mt-1 text-sm text-red-500">{errorMessage}</p>
-      )}
+      {hasError && <p className="mt-1 text-sm text-red-500">{errorMessage}</p>}
     </div>
   );
 };
 
+// File Upload Field
 const FileField: React.FC<{
   field: FileFieldConfig;
-  control: any;
-  errors: any;
+  control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 }> = ({ field, control, errors }) => {
   const hasError = !!errors[field.name];
-  const errorMessage = errors[field.name]?.message || "";
+  const errorMessage = errors[field.name]?.message as string | undefined;
   const [preview, setPreview] = React.useState<string | null>(null);
 
   return (
-    <div className={field.gridCol === "half" ? "" : "col-span-2"}>
+    <div className={field.gridCol === "half" ? "col-span-1" : "col-span-2"}>
       <label className="block text-sm font-medium text-gray-700 mb-4">
         {field.label}
         {field.required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      
+
       <div className="flex items-center space-x-4">
         {/* Circular preview */}
         <div className="flex-shrink-0">
           <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
             {preview ? (
-              <img 
-                src={preview} 
-                alt="Preview" 
+              <img
+                src={preview}
+                alt="Preview"
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -268,9 +309,8 @@ const FileField: React.FC<{
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
                       controllerField.onChange(file);
-                      
-                      // Create preview for images
-                      if (file && file.type.startsWith('image/')) {
+
+                      if (file && file.type.startsWith("image/")) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
                           setPreview(e.target?.result as string);
@@ -284,8 +324,7 @@ const FileField: React.FC<{
                     className="hidden"
                   />
                 </label>
-                
-                {/* File info */}
+
                 <p className="text-sm text-gray-500 mt-2">
                   JPG, PNG up to 5MB. Recommended: 200x200px
                 </p>
@@ -295,23 +334,23 @@ const FileField: React.FC<{
         </div>
       </div>
 
-      {hasError && (
-        <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
-      )}
+      {hasError && <p className="mt-2 text-sm text-red-500">{errorMessage}</p>}
     </div>
   );
 };
 
-// Main dynamic form component
+// --- Main Dynamic Form Component ---
+
 const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
-    reset
   } = useForm<FormData>({
-    resolver: config.validationSchema ? yupResolver(config.validationSchema) : undefined,
-    mode: "onChange"
+    resolver: config.validationSchema
+      ? yupResolver(config.validationSchema)
+      : undefined,
+    mode: "onChange",
   });
 
   const onSubmit = (data: FormData) => {
@@ -360,28 +399,27 @@ const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200">
+    <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm">
       <div className="p-8">
         <h1 className="text-xl font-semibold text-gray-900 mb-8">
           {config.title}
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* Render form fields in a grid */}
           <div className="grid grid-cols-2 gap-6 mb-8">
             {config.fields.map((field, index) => renderField(field, index))}
           </div>
 
-          {/* Form actions */}
           <div className="flex gap-4">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={!isValid || isSubmitting}
               className={`
                 flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-colors
-                ${isSubmitting
-                  ? "bg-gray-400 text-white cursor-not-allowed"
-                  : "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                ${
+                  !isValid || isSubmitting
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 }
               `}
             >
