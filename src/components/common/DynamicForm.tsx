@@ -399,8 +399,8 @@ const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm">
-      <div className="p-8">
+    <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200">
+      <div className="p-6">
         <h1 className="text-xl font-semibold text-gray-900 mb-8">
           {config.title}
         </h1>
@@ -418,7 +418,7 @@ const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
                 flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-colors
                 ${
                   !isValid || isSubmitting
-                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    ? "bg-red-600 hover:bg-red-700 text-white cursor-not-allowed"
                     : "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 }
               `}
@@ -430,7 +430,7 @@ const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
               <button
                 type="button"
                 onClick={config.onCancel}
-                className="flex-1 py-3 px-4 rounded-lg border border-gray-300 text-gray-800 font-medium text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors"
+                className="flex-1 py-3 px-4 rounded-lg border border-gray-300 text-gray-800 font-medium text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors cursor-pointer"
               >
                 {config.cancelButtonText || "Cancel"}
               </button>

@@ -3,6 +3,7 @@ import DynamicTable from "../../components/common/TableComponent";
 import PageWrapper from "../../layout/PageWrapper";
 import IconButton from "../../components/common/Button";
 import DialogActionButton from "../../components/common/DialogActionButton"
+import { useNavigate } from "react-router-dom";
 
 // Merchant data type
 type Merchant = {
@@ -175,18 +176,14 @@ const MerchantPage: React.FC = () => {
     showNotification("Type filter cleared", "success");
   };
 
+const navigate = useNavigate();
+
   const handleAddNew = async () => {
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Add new merchant clicked");
-      showNotification(
-        "Add new merchant functionality would be implemented here",
-        "success",
-      );
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      navigate("/merchants/new"); 
     } catch (error) {
+       console.error(error);
       showNotification("Failed to add new merchant", "error");
     } finally {
       setLoading(false);
