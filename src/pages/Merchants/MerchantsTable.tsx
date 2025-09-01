@@ -196,7 +196,7 @@ const navigate = useNavigate();
   };
 
   const handleView = (merchant: Merchant) => {
-    console.log("View merchant:", merchant);
+     navigate("/merchants/details"); 
     showNotification(`Viewing merchant: ${merchant.name}`, "success");
   };
 
