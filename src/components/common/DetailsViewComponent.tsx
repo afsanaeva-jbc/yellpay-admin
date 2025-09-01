@@ -8,7 +8,7 @@ export interface DynamicField {
   label: string;
   value: string | number | boolean;
   type?: 'text' | 'email' | 'phone' | 'url' | 'date' | 'currency';
-  displayFormat?: (value: any) => string;
+  displayFormat?: (value: string | number | boolean) => string;
 }
 
 export interface ContactInfo {
@@ -28,9 +28,9 @@ export interface QuickStat {
   label: string;
   value: string | number;
   variant?: 'default' | 'success' | 'warning' | 'error';
-  displayFormat?: (value: any) => string;
+  displayFormat?: (value: string | number) => string;
   icon?: React.ReactElement;
-  showAsChip?: boolean; // New property to control chip display
+  showAsChip?: boolean; 
 }
 
 export interface DetailsField {
@@ -38,7 +38,7 @@ export interface DetailsField {
   label: string;
   value: string | number | boolean;
   type?: 'text' | 'email' | 'phone' | 'url' | 'date' | 'currency' | 'boolean';
-  displayFormat?: (value: any) => string;
+  displayFormat?: (value: string | number | boolean) => string;
   copyable?: boolean;
   clickable?: boolean;
   onClick?: () => void;
@@ -95,7 +95,12 @@ interface DetailsViewProps {
   
   quickStats?: QuickStat[];
   sections: DetailsSection[];
-  description?: string;
+  description?: {
+    key: string;
+    title: string;
+    icon?: React.ReactElement;
+    value: string;
+  };
   contactInfo?: ContactInfo;
   address?: Address;
   businessInfo?: BusinessInfo;
@@ -248,7 +253,7 @@ const DetailsView: React.FC<DetailsViewProps> = ({
   const allSections = [...builtInSections, ...sections];
 
   return (
-    <div className={`min-h-screen ${className}`}>
+    <div className={`${className}`}>
       {/* Header */}
       <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -273,8 +278,8 @@ const DetailsView: React.FC<DetailsViewProps> = ({
                 <Button
                   onClick={primaryAction.onClick}
                   startIcon={primaryAction.icon}
-                  variant={primaryAction.variant || 'contained'}
-                  className={`${primaryAction.color || '!bg-red-600 hover:!bg-red-700'} !normal-case !font-medium !rounded-lg`}
+                //   variant={primaryAction.variant || 'outline'}
+                  className={`${primaryAction.color || ' !bg-red-600 !text-white !px-4 hover:!bg-red-700'} !normal-case !font-semibold !rounded-lg`}
                 >
                   {primaryAction.label}
                 </Button>
@@ -372,12 +377,17 @@ const DetailsView: React.FC<DetailsViewProps> = ({
             {description && (
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
+                  {description.icon && (
+                    <div className="text-gray-400">
+                      {description.icon}
+                    </div>
+                  )}
                   <h3 className="text-lg font-semibold text-gray-900">
-                    Description
+                    {description.title}
                   </h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed">
-                  {description}
+                  {description.value}
                 </p>
               </div>
             )}

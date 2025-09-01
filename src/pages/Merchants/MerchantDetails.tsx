@@ -1,19 +1,19 @@
-import React from 'react';
-import { Mail, MapPin, Building, Edit } from 'lucide-react';
-import DetailsView from "../../components/common/DetailsViewComponent"
+import React from "react";
+import { Mail, MapPin, Building, Edit, FileText } from "lucide-react";
+import DetailsView from "../../components/common/DetailsViewComponent";
 import { useNavigate } from "react-router-dom";
 
 const MerchantDetailsPage: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const handleBack = () => {
-    navigate("/merchants"); 
-    console.log('Navigating back to merchants');
+    navigate("/merchants");
+    console.log("Navigating back to merchants");
   };
 
   const handleEdit = () => {
     // Navigate to edit merchant page
-    console.log('Navigating to edit merchant');
+    console.log("Navigating to edit merchant");
   };
 
   // Sample data for the merchant
@@ -22,13 +22,13 @@ const MerchantDetailsPage: React.FC = () => {
     entityInitials: "TS",
     status: {
       label: "active",
-      variant: "success" as const
+      variant: "success" as const,
     },
     tags: [
-      { 
+      {
         key: "service-tag",
-        label: "Service" 
-      }
+        label: "Service",
+      },
     ],
     quickStats: [
       {
@@ -36,20 +36,20 @@ const MerchantDetailsPage: React.FC = () => {
         label: "Status",
         value: "active",
         variant: "success" as const,
-        showAsChip: true // This will show as a chip
+        showAsChip: true, // This will show as a chip
       },
       {
         key: "member-since",
         label: "Member Since",
         value: "January 15, 2024",
-        showAsChip: false // This will show as plain text
+        showAsChip: false, // This will show as plain text
       },
       {
         key: "business-type",
         label: "Business Type",
         value: "Service",
-        showAsChip: false // This will show as plain text
-      }
+        showAsChip: false, // This will show as plain text
+      },
     ],
     sections: [
       {
@@ -61,15 +61,15 @@ const MerchantDetailsPage: React.FC = () => {
             key: "email",
             label: "Email",
             value: "contact@techsolutions.com",
-            type: "email" as const
+            type: "email" as const,
           },
           {
             key: "phone",
             label: "Phone",
             value: "+1 (555) 123-4567",
-            type: "phone" as const
-          }
-        ]
+            type: "phone" as const,
+          },
+        ],
       },
       {
         key: "address",
@@ -80,9 +80,9 @@ const MerchantDetailsPage: React.FC = () => {
             key: "street-address",
             label: "Street Address",
             value: "123 Business Ave, Tech City, TC 12345",
-            type: "text" as const
-          }
-        ]
+            type: "text" as const,
+          },
+        ],
       },
       {
         key: "business-info",
@@ -93,18 +93,23 @@ const MerchantDetailsPage: React.FC = () => {
             key: "business-type",
             label: "Business Type",
             value: "Service",
-            type: "text" as const
+            type: "text" as const,
           },
           {
             key: "registration-date",
             label: "Registration Date",
             value: "January 15, 2024",
-            type: "date" as const
-          }
-        ]
-      }
+            type: "date" as const,
+          },
+        ],
+      },
     ],
-    description: "Leading provider of IT solutions and consulting services for small and medium businesses."
+    description: {
+      key: "description",
+      title: "Description",
+      icon: <FileText className="w-5 h-5" />,
+      value: "Leading provider of IT solutions and consulting services for small and medium businesses.",
+    },
   };
 
   return (
@@ -115,7 +120,7 @@ const MerchantDetailsPage: React.FC = () => {
       primaryAction={{
         label: "Edit Merchant",
         onClick: handleEdit,
-        icon: <Edit className="w-4 h-4" />
+        icon: <Edit className="w-4 h-4" />,
       }}
       entityName={merchantData.entityName}
       entityInitials={merchantData.entityInitials}
