@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FiEye, FiEdit, FiTrash2 } from "react-icons/fi";
+import { Button } from "@mui/material";
 import DynamicTable from "../../components/common/TableComponent";
-import DeleteModal from "../../components/common/DeleteModal"; // Adjust path as needed
+import PageWrapper from "../../layout/PageWrapper";
 
 // Merchant data type
 type Merchant = {
@@ -19,11 +20,20 @@ const MerchantPage: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading] = useState(false);
-  
-  // Delete modal state
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [merchantToDelete, setMerchantToDelete] = useState<Merchant | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // Delete dialog state
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [merchantToDelete, setMerchantToDelete] = useState<Merchant | null>(
+    null,
+  );
+
+  // Snackbar state for notifications
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "warning" | "error"
+  >("success");
 
   // Sample merchant data
   const [merchantData, setMerchantData] = useState<Merchant[]>([
@@ -53,21 +63,31 @@ const MerchantPage: React.FC = () => {
     },
     {
       id: 4,
-      name: "Bella Vista Restaurant",
+      name: "Bella Vista Restaurant 2",
       description: "Authentic Italian cuisine with a mo...",
       businessType: "Restaurant",
-      email: "reservations@bellavista.com",
+      email: "reservations2@bellavista.com",
       status: "inactive",
     },
     {
       id: 5,
-      name: "Tech Solutions Inc.",
+      name: "Tech Solutions Inc. 2",
       description: "Leading provider of IT solutions and...",
       businessType: "Service",
-      email: "contact@techsolutions.com",
+      email: "contact2@techsolutions.com",
       status: "active",
     },
   ]);
+
+  // Helper function to show snackbar notifications
+  const showNotification = (
+    message: string,
+    severity: "success" | "warning" | "error" = "success",
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
 
   // Apply filters to data
   const filteredData = merchantData.filter((merchant) => {
@@ -126,19 +146,19 @@ const MerchantPage: React.FC = () => {
   // Event handlers
   const handleSearch = (term: string) => {
     setSearchTerm(term);
-    setCurrentPage(1); // Reset to first page when searching
+    setCurrentPage(1);
     console.log("Searching for:", term);
   };
 
   const handleStatusFilter = (status: string) => {
     setStatusFilter(status);
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
     console.log("Filter by status:", status);
   };
 
   const handleTypeFilter = (type: string) => {
     setTypeFilter(type);
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
     console.log("Filter by type:", type);
   };
 
@@ -146,19 +166,31 @@ const MerchantPage: React.FC = () => {
   const handleClearStatusFilter = () => {
     setStatusFilter("");
     setCurrentPage(1);
-    console.log("Status filter cleared");
+    showNotification("Status filter cleared", "success");
   };
 
   const handleClearTypeFilter = () => {
     setTypeFilter("");
     setCurrentPage(1);
-    console.log("Type filter cleared");
+    showNotification("Type filter cleared", "success");
   };
 
-  const handleAddNew = () => {
-    // Navigate to add merchant page or open modal
-    console.log("Add new merchant clicked");
-    alert("Add new merchant functionality would be implemented here");
+  const handleAddNew = async () => {
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Add new merchant clicked");
+      showNotification(
+        "Add new merchant functionality would be implemented here",
+        "success",
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      showNotification("Failed to add new merchant", "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePageChange = (page: number) => {
@@ -168,39 +200,67 @@ const MerchantPage: React.FC = () => {
 
   const handleView = (merchant: Merchant) => {
     console.log("View merchant:", merchant);
-    alert(`Viewing merchant: ${merchant.name}`);
+    showNotification(`Viewing merchant: ${merchant.name}`, "success");
   };
 
-  const handleEdit = (merchant: Merchant) => {
-    console.log("Edit merchant:", merchant);
-    alert(`Editing merchant: ${merchant.name}`);
+  const handleEdit = async (merchant: Merchant) => {
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      console.log("Edit merchant:", merchant);
+      showNotification(
+        `Merchant ${merchant.name} edited successfully`,
+        "success",
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      showNotification("Failed to edit merchant", "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = (merchant: Merchant) => {
     setMerchantToDelete(merchant);
-    setIsDeleteModalOpen(true);
+    setIsDeleteDialogOpen(true);
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (merchantToDelete) {
-      console.log("Deleting merchant:", merchantToDelete);
-      
-      // Remove merchant from the data
-      setMerchantData(prevData => 
-        prevData.filter(merchant => merchant.id !== merchantToDelete.id)
-      );
-      
-      // Close modal and reset state
-      setIsDeleteModalOpen(false);
-      setMerchantToDelete(null);
-      
-      // Optional: Show success message
-      alert(`Merchant "${merchantToDelete.name}" has been deleted successfully`);
+      setLoading(true);
+      try {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        console.log("Deleting merchant:", merchantToDelete);
+
+        // Remove merchant from the data
+        setMerchantData((prevData) =>
+          prevData.filter((merchant) => merchant.id !== merchantToDelete.id),
+        );
+
+        // Close dialog and reset state
+        setIsDeleteDialogOpen(false);
+        const deletedMerchantName = merchantToDelete.name;
+        setMerchantToDelete(null);
+
+        // Show success notification
+        showNotification(
+          `Merchant "${deletedMerchantName}" has been deleted successfully`,
+          "success",
+        );
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        showNotification("Failed to delete merchant", "error");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const handleDeleteCancel = () => {
-    setIsDeleteModalOpen(false);
+    setIsDeleteDialogOpen(false);
     setMerchantToDelete(null);
   };
 
@@ -232,6 +292,56 @@ const MerchantPage: React.FC = () => {
     </button>,
   ];
 
+  // Delete dialog content and actions
+  const deleteDialogContent = (
+    <div style={{ color: "#666" }}>
+      <p>
+        Are you sure you want to delete the merchant "{merchantToDelete?.name}"
+      </p>
+      <p>This action cannot be undone.</p>
+    </div>
+  );
+
+  const deleteDialogActions = (
+    <>
+      <Button
+        onClick={handleDeleteCancel}
+        color="inherit"
+        sx={{
+          textTransform: "none",
+          padding: "0.4rem 1rem",
+          fontSize: "0.875rem",
+          fontWeight: 500,
+          color: "rgb(55, 65, 81)",
+          border: "1px solid rgb(209, 213, 219)",
+          borderRadius: "0.375rem",
+          "&:hover": {
+            backgroundColor: "rgb(249, 250, 251)",
+          },
+        }}
+      >
+        Cancel
+      </Button>
+      <Button
+        onClick={handleDeleteConfirm}
+        sx={{
+          textTransform: "none",
+          padding: "0.4rem 1rem",
+          fontSize: "0.875rem",
+          fontWeight: 500,
+          color: "white",
+          backgroundColor: "rgb(220, 38, 38)",
+          borderRadius: "0.375rem",
+          "&:hover": {
+            backgroundColor: "rgb(185, 28, 28)",
+          },
+        }}
+      >
+        Delete
+      </Button>
+    </>
+  );
+
   // Calculate pagination
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / 10);
@@ -240,7 +350,18 @@ const MerchantPage: React.FC = () => {
   const currentData = filteredData.slice(startIndex, endIndex);
 
   return (
-    <div>
+    <PageWrapper
+      loading={loading}
+      open={snackbarOpen}
+      setOpen={setSnackbarOpen}
+      message={snackbarMessage}
+      severity={snackbarSeverity}
+      dialogueOpen={isDeleteDialogOpen}
+      dialogueTitle="Delete Merchant"
+      dialogueContent={deleteDialogContent}
+      dialogueActions={deleteDialogActions}
+      dialogueClose={handleDeleteCancel}
+    >
       <DynamicTable
         title="Merchants"
         columns={merchantColumns}
@@ -276,15 +397,7 @@ const MerchantPage: React.FC = () => {
         onPageChange={handlePageChange}
         emptyStateText="No merchants found"
       />
-      
-      {/* Delete Modal */}
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        onClose={handleDeleteCancel}
-        onConfirm={handleDeleteConfirm}
-        merchantName={merchantToDelete?.name}
-      />
-    </div>
+    </PageWrapper>
   );
 };
 

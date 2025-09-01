@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { 
   LayoutDashboard,
   BarChart3,
-  Receipt,
+  CreditCard,
   Users,
   FileBarChart,
   Settings,
@@ -54,7 +54,7 @@ export const SideBarItems = (): SideBarItem[] => {
       section: 'main'
     },
     {
-      icon: <Receipt className="w-5 h-5"/>,
+      icon: <CreditCard className="w-5 h-5"/>,
       text: t("transactions"),
       route: '/transactions',
       section: 'main'
