@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FiEye, FiEdit, FiTrash2 } from "react-icons/fi";
-import { Button } from "@mui/material";
 import DynamicTable from "../../components/common/TableComponent";
 import PageWrapper from "../../layout/PageWrapper";
+import IconButton from "../../components/common/Button";
+import DialogActionButton from "../../components/common/DialogActionButton"
 
 // Merchant data type
 type Merchant = {
@@ -264,33 +264,27 @@ const MerchantPage: React.FC = () => {
     setMerchantToDelete(null);
   };
 
-  // Action buttons for each row
-  const getActions = (merchant: Merchant) => [
-    <button
-      key="view"
-      onClick={() => handleView(merchant)}
-      className="p-2 text-black-700 hover:text-blue-600 transition-colors rounded-md hover:bg-blue-50"
-      title="View merchant"
-    >
-      <FiEye className="w-4.5 h-4.5" />
-    </button>,
-    <button
-      key="edit"
-      onClick={() => handleEdit(merchant)}
-      className="p-2 text-black-700 hover:text-green-600 transition-colors rounded-md hover:bg-green-50"
-      title="Edit merchant"
-    >
-      <FiEdit className="w-4.5 h-4.5" />
-    </button>,
-    <button
-      key="delete"
-      onClick={() => handleDelete(merchant)}
-      className="p-2 text-black-700 hover:text-red-600 transition-colors rounded-md hover:bg-red-50"
-      title="Delete merchant"
-    >
-      <FiTrash2 className="w-4.5 h-4.5" />
-    </button>,
-  ];
+  //Table Action buttons 
+const getActions = (merchant: Merchant) => [
+  <IconButton
+    key="view"
+    type="View"
+    label="View merchant"
+    onClick={() => handleView(merchant)}
+  />,
+  <IconButton
+    key="edit"
+    type="Edit"
+    label="Edit merchant"
+    onClick={() => handleEdit(merchant)}
+  />,
+  <IconButton
+    key="delete"
+    type="Delete"
+    label="Delete merchant"
+    onClick={() => handleDelete(merchant)}
+  />,
+];
 
   // Delete dialog content and actions
   const deleteDialogContent = (
@@ -304,41 +298,16 @@ const MerchantPage: React.FC = () => {
 
   const deleteDialogActions = (
     <>
-      <Button
-        onClick={handleDeleteCancel}
-        color="inherit"
-        sx={{
-          textTransform: "none",
-          padding: "0.4rem 1rem",
-          fontSize: "0.875rem",
-          fontWeight: 500,
-          color: "rgb(55, 65, 81)",
-          border: "1px solid rgb(209, 213, 219)",
-          borderRadius: "0.375rem",
-          "&:hover": {
-            backgroundColor: "rgb(249, 250, 251)",
-          },
-        }}
-      >
-        Cancel
-      </Button>
-      <Button
-        onClick={handleDeleteConfirm}
-        sx={{
-          textTransform: "none",
-          padding: "0.4rem 1rem",
-          fontSize: "0.875rem",
-          fontWeight: 500,
-          color: "white",
-          backgroundColor: "rgb(220, 38, 38)",
-          borderRadius: "0.375rem",
-          "&:hover": {
-            backgroundColor: "rgb(185, 28, 28)",
-          },
-        }}
-      >
-        Delete
-      </Button>
+     <DialogActionButton
+      label="Cancel"
+      variant="cancel"
+      onClick={handleDeleteCancel}
+    />
+    <DialogActionButton
+      label="Delete"
+      variant="delete"
+      onClick={handleDeleteConfirm}
+    />
     </>
   );
 

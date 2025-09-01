@@ -17,6 +17,8 @@ import CreateUserForm from "../pages/Admin/CreateUserForm";
 import EditUserForm from "../pages/Admin/EditUserForm";
 import Layout from "../layout";
 import Merchants from "../pages/Merchants";
+import CreateMerchantForm from "../pages/Merchants/CreateMerchants";
+import EditMerchant from "../pages/Merchants/EditMerchant"
 
 export const router = createBrowserRouter([
   {
@@ -29,11 +31,11 @@ export const router = createBrowserRouter([
     children: [
       { path: "dashboard", element: <Dashboard /> },
       { path: "merchants", element: <Merchants /> },
+      { path: "merchants/new", element: <CreateMerchantForm /> },
+      { path: "merchants/edit/:id", element: <EditMerchant/> },
       { path: "doc-list", element: <DocumentListPage /> },
-      // { path: "user-list", element: <ViewUserPage /> },
       { path: "change-password", element: <ChangePassword /> },
       { path: "create-admin", element: <AdminForm /> },
-      // { path: "/register", element: <Register roles={[]} /> },
       { path: "edit/:userId", element: <EditUserForm /> },
       { path: "users/:role", element: <ViewDetails /> },
       { path: "create-users/:role", element: <CreateUserForm /> },
