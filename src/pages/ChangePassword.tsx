@@ -12,7 +12,7 @@ import Loading from "../components/common/Loading";
 const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState, setError, clearErrors,reset } =
+  const { register, handleSubmit, formState, setError, clearErrors, reset } =
     useForm<ChangePasswordData>({
       defaultValues: {
         current_password: "",
@@ -52,7 +52,7 @@ const ChangePassword: React.FC = () => {
       setTimeout(() => {
         setLoading(false);
         toast.success(
-          response.data.message || "Password changed successfully!"
+          response.data.message || "Password changed successfully!",
         );
         reset(); // This will reset all fields to defaultValues
         setCurrentPassword("");
@@ -75,18 +75,21 @@ const ChangePassword: React.FC = () => {
   return (
     <div className="max-w-[550px] m-auto">
       {loading && <Loading />}
-      <div className="w-full space-y-6 rounded-lg border-2  border-[#005eb6] bg-white p-8 shadow-md dark:bg-[#18181B] flex flex-col">
-        <h2 className="text-3xl font-bold text-[#D5242A] dark:text-[#4BB3FF]">
+      <div className="w-full space-y-8 rounded-lg border-1  border-gray-200 bg-white p-8 m-8 dark:bg-[#18181B] flex flex-col">
+        <h2 className="text-3xl font-bold text-[#D5242A] dark:text-[#ff4b4b]">
           Change Password
         </h2>
         <div className="w-full">
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Current Password Field */}
             <div className="mb-4 relative">
+              <label className=" text-[#D5242A] text-base font-bold  py-2">
+                Current Password
+              </label>
               <input
                 type={isCurrentPasswordVisible ? "password" : "text"}
                 placeholder="Current Password"
-                className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1"
+                className="block px-2.5 py-3 mt-2 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300"
                 {...register("current_password", {
                   required: "Current Password is required",
                   minLength: {
@@ -96,9 +99,7 @@ const ChangePassword: React.FC = () => {
                   onChange: (e) => setCurrentPassword(e.target.value),
                 })}
               />
-              <label className="absolute text-[#D5242A] text-base font-bold duration-300 transform -translate-y-4 scale-75 top-2 z-10 bg-white px-2">
-                Current Password
-              </label>
+
               <p className="p-2 text-sm text-red-500 font-semibold">
                 {errors.current_password?.message}
               </p>
@@ -108,7 +109,7 @@ const ChangePassword: React.FC = () => {
                   title={
                     isCurrentPasswordVisible ? "See password" : "Hide password"
                   }
-                  className="absolute top-4 right-3 cursor-pointer text-xl"
+                  className="absolute top-11 right-3 cursor-pointer text-md"
                   onClick={() => setIsCurrentPasswordVisible((prev) => !prev)}
                 >
                   {isCurrentPasswordVisible ? <CgEyeAlt /> : <RiEyeCloseLine />}
@@ -118,10 +119,13 @@ const ChangePassword: React.FC = () => {
 
             {/* New Password Field */}
             <div className="mb-4 relative">
+              <label className=" text-[#D5242A] text-base font-bold  py-2">
+                New Password
+              </label>
               <input
                 type={isNewPasswordVisible ? "password" : "text"}
                 id="newPassword"
-                className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1"
+                className="block px-2.5 py-3 mt-2 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300"
                 placeholder="New Password"
                 {...register("password", {
                   required: "New Password is required",
@@ -137,9 +141,7 @@ const ChangePassword: React.FC = () => {
                   onChange: (e) => setNewPassword(e.target.value), // Update newPassword state
                 })}
               />
-              <label className="absolute text-[#D5242A] text-base font-bold duration-300 transform -translate-y-4 scale-75 top-2 z-10 bg-white px-2">
-                New Password
-              </label>
+
               <p className="p-2 text-sm text-red-500 font-semibold">
                 {errors.password?.message}
               </p>
@@ -149,7 +151,7 @@ const ChangePassword: React.FC = () => {
                   title={
                     isNewPasswordVisible ? "See password" : "Hide password"
                   }
-                  className="absolute top-4 right-3 cursor-pointer text-xl"
+                  className="absolute top-11 right-3 cursor-pointer text-md"
                   onClick={() => setIsNewPasswordVisible((prev) => !prev)}
                 >
                   {isNewPasswordVisible ? <CgEyeAlt /> : <RiEyeCloseLine />}
@@ -159,10 +161,13 @@ const ChangePassword: React.FC = () => {
 
             {/* Confirm Password Field */}
             <div className="relative">
+              <label className=" text-[#D5242A] text-base font-bold  py-2">
+                Confirm Password
+              </label>
               <input
                 type={isConfirmPasswordVisible ? "password" : "text"}
                 id="confirmPassword"
-                className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1"
+                className="block px-2.5 py-3 mt-2 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300"
                 placeholder="Confirm Password"
                 {...register("password_confirmation", {
                   required: "Confirm Password is required",
@@ -179,9 +184,7 @@ const ChangePassword: React.FC = () => {
                   onChange: (e) => setConfirmPassword(e.target.value), // Update confirmPassword state
                 })}
               />
-              <label className="absolute text-[#D5242A] text-base font-bold duration-300 transform -translate-y-4 scale-75 top-2 z-10 bg-white px-2">
-                Confirm Password
-              </label>
+
               <p className="p-2 text-sm text-red-500 font-semibold">
                 {errors.password_confirmation?.message}
               </p>
@@ -191,7 +194,7 @@ const ChangePassword: React.FC = () => {
                   title={
                     isConfirmPasswordVisible ? "See password" : "Hide password"
                   }
-                  className="absolute top-4 right-3 cursor-pointer text-xl"
+                  className="absolute top-11 right-3 cursor-pointer text-md"
                   onClick={() => setIsConfirmPasswordVisible((prev) => !prev)}
                 >
                   {isConfirmPasswordVisible ? <CgEyeAlt /> : <RiEyeCloseLine />}
@@ -199,10 +202,10 @@ const ChangePassword: React.FC = () => {
               )}
             </div>
 
-            <div className="flex">
+            <div className="flex mt-6">
               <button
                 type="button"
-                className="w-full mr-4 rounded bg-gradient-to-r from-[#52b7ff] to-[#0084ff] py-2 font-semibold uppercase text-white cursor-pointer text-center"
+                className="w-full mr-4 border border-gray-300 text-gray-800 font-medium text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors cursor-pointer rounded-sm"
                 onClick={() => {
                   navigate(-1);
                 }}
@@ -211,7 +214,7 @@ const ChangePassword: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="w-full rounded bg-gradient-to-r from-[#52b7ff] to-[#0084ff] py-2 font-semibold uppercase text-white cursor-pointer"
+                className="w-full rounded-sm bg-[#D5242A] py-2 font-semibold  text-white cursor-pointer"
               >
                 Save
               </button>

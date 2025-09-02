@@ -74,7 +74,7 @@ const EditMerchantForm: React.FC<EditMerchantFormProps> = ({
       try {
         setInitialLoading(true);
         const response = await axiosInstance.get(`/merchants/${merchantId}`);
-        setMerchant(response.data.merchant || response.data);
+        setMerchant(response.data?.merchant || response.data);
       } catch (error: unknown) {
         if (isAxiosError(error)) {
           const apiError = error.response?.data;

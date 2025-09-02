@@ -37,24 +37,27 @@ const CommonForm: React.FC<CommonFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md mx-auto p-4 space-y-6 bg-white shadow-md rounded-lg"
+      className="max-w-md mx-auto p-4 space-y-6 border-gray-200 border-1 rounded-lg"
     >
       <h2 className="text-3xl font-bold text-[#D5242A]">{title}</h2>
 
       {fields.map((field) => (
         <div key={field.name} className="mb-4 relative">
+          <label
+            className={`${
+              errors[field.name] ? "text-red-500" : "text-[#D5242A]"
+            } text-[#D5242A] text-base font-bold  py-2`}
+          >
+            {field.label}
+          </label>
           <input
             type={field.type}
             placeholder={field.placeholder || field.label}
-            className={`block px-2.5 pb-2.5 pt-4 w-full text-sm bg-transparent rounded-lg border-1 ${
-              errors[field.name] ? "border-red-500" : "border-[#D5242A]"
+            className={`block  py-3 mt-2 w-full text-sm bg-transparent rounded-lg border-1 ${
+              errors[field.name] ? "border-gray-500" : "border-[#d2d2d2]"
             }`}
             {...register(field.name, field.validation)}
-            value={
-              field.name === "phone"
-                ? phone
-                : undefined
-            }
+            value={field.name === "phone" ? phone : undefined}
             onChange={
               field.name === "phone"
                 ? (e) => {
@@ -65,13 +68,6 @@ const CommonForm: React.FC<CommonFormProps> = ({
                 : undefined
             }
           />
-          <label
-            className={`absolute text-base ${
-              errors[field.name] ? "text-red-500" : "text-[#D5242A]"
-            } font-bold duration-300 transform -translate-y-4 scale-75 top-2 z-10 bg-white px-2`}
-          >
-            {field.label}
-          </label>
           <p className="p-2 text-sm text-red-500 font-semibold">
             {errors[field.name]?.message as string}
           </p>
@@ -81,14 +77,14 @@ const CommonForm: React.FC<CommonFormProps> = ({
       <div className="flex gap-4 justify-between mt-6">
         <button
           type="button"
-          className="bg-gray-400 hover:bg-gray-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-md"
+          className="w-full mr-4 border border-gray-300 text-gray-800 font-medium text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors cursor-pointer rounded-sm"
           onClick={() => navigate(-1)}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer font-semibold px-4 py-2 rounded-md"
+          className="bg-red-600 w-full hover:bg-red-700 text-white cursor-pointer font-semibold px-4 py-2 rounded-md"
         >
           {btnText}
         </button>

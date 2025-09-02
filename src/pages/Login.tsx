@@ -55,7 +55,7 @@ const Login = () => {
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -70,17 +70,17 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               {...register("password", { required: "Password is required" })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
             <button
               type="button"
-              className="absolute right-2 top-10 text-gray-600"
+              className="absolute right-2 top-11 text-gray-600"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <RiEyeCloseLine size={20} />
+                <RiEyeCloseLine size={15} />
               ) : (
-                <CgEyeAlt size={20} />
+                <CgEyeAlt size={15} />
               )}
             </button>
             {errors.password && (
@@ -100,18 +100,26 @@ const Login = () => {
           </button>
         </form>
         <div className="flex justify-items-center mt-10">
-          <Link to="/change-password">
+          {/* <Link to="/change-password">
             <button
               type="button"
               className="bg-amber-300 text-black py-2 px-4 rounded cursor-pointer"
             >
               Change Password
             </button>
+          </Link> */}
+          <Link to="/forgot-password">
+            <button
+              type="button"
+              className="border border-gray-300 text-gray-800 font-medium text-sm hover:bg-gray-50 py-2 px-6 rounded cursor-pointer"
+            >
+              Forget Password
+            </button>
           </Link>
           <Link to="/register">
             <button
               type="button"
-              className="bg-green-500 text-white py-2 px-10 rounded cursor-pointer ml-8"
+              className="border border-gray-300 text-gray-800 font-medium text-sm py-2 px-10 rounded cursor-pointer hover:bg-gray-50 ml-8"
             >
               Register
             </button>
