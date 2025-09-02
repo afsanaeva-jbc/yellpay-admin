@@ -91,7 +91,7 @@ export const SideBarItems = (): SideBarItem[] => {
      {
       icon: <ImExit className="w-5 h-5"   onClick={handleLogout}/>,
       text: t("logout"),
-      route: '/logout',
+      route: '/login',
       section: 'support'
     }
   ];

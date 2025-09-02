@@ -418,7 +418,7 @@ const DynamicForm: React.FC<{ config: FormConfig }> = ({ config }) => {
                 flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-colors
                 ${
                   !isValid || isSubmitting
-                    ? "bg-red-600 hover:bg-red-700 text-white cursor-not-allowed"
+                    ? "bg-red-600 hover:bg-red-700 text-white"
                     : "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 }
               `}

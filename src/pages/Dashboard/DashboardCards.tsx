@@ -4,6 +4,7 @@ import {
   Users,
   BarChart3,TrendingUp
 } from "lucide-react";
+import PageWrapper from "../../layout/PageWrapper";
 
 export default function DashboardCards() {
   // Sample data for activity card
@@ -52,6 +53,7 @@ export default function DashboardCards() {
   ];
 
   return (
+    <PageWrapper>
     <div className="space-y-6">
       {/* Metrics Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -109,5 +111,6 @@ export default function DashboardCards() {
         />
       </div>
     </div>
+    </PageWrapper>
   );
 }

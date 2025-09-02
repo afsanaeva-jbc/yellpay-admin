@@ -4,9 +4,10 @@ import { FiEye, FiEdit, FiTrash2, FiArrowLeft } from "react-icons/fi";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
+// Types
 interface IconButtonProps {
   url?: string;
-  type: "View" | "Edit" | "Delete" | "Back";
+  type: "View" | "Edit" | "Delete" | "Back" | "Status" | "Info";
   label: string;
   onClick?: () => void;
 }
@@ -17,8 +18,10 @@ interface BackButtonProps {
   url?: string;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
+// Icon Rendering
 const renderIcon = (type: string) => {
   switch (type) {
     case "View":
@@ -31,15 +34,16 @@ const renderIcon = (type: string) => {
       return <FiArrowLeft className="w-4.5 h-4.5" />;
     case "Status":
       return (
-        <IoMdCheckmarkCircleOutline className="transition delay-150 duration-500 ease-in-out hover:translate-y-0 hover:scale-120 text-orange-500 hover:text-orange-700 font-medium text-xl cursor-pointer flex items-center" />
+        <IoMdCheckmarkCircleOutline className="transition duration-300 ease-in-out hover:scale-110 text-orange-500 hover:text-orange-700 text-xl cursor-pointer" />
       );
     case "Info":
-      return <FaCircleInfo />;
+      return <FaCircleInfo className="text-blue-500" />;
     default:
       return null;
   }
 };
 
+// Style Classes
 const getClasses = (type: IconButtonProps["type"]) => {
   switch (type) {
     case "View":
@@ -55,12 +59,8 @@ const getClasses = (type: IconButtonProps["type"]) => {
   }
 };
 
-const IconButton: React.FC<IconButtonProps> = ({
-  url,
-  label,
-  type,
-  onClick,
-}) => {
+// IconButton Component
+const IconButton: React.FC<IconButtonProps> = ({ url, label, type, onClick }) => {
   const classes = getClasses(type);
 
   if (url) {
@@ -70,6 +70,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       </Link>
     );
   }
+
   return (
     <button type="button" title={label} onClick={onClick} className={classes}>
       {renderIcon(type)}
@@ -77,39 +78,49 @@ const IconButton: React.FC<IconButtonProps> = ({
   );
 };
 
-// Dedicated BackButton component following your design patterns
+// BackButton Component
 const BackButton: React.FC<BackButtonProps> = ({
   onClick,
   label = "Back",
-  url,
   className = "",
   disabled = false,
+  type = "button",
 }) => {
-  const baseClasses = `inline-flex items-center border-1 gap-2 px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors rounded-md font-medium ${className}`;
-  
-  const content = (
-    <>
-      <FiArrowLeft className="w-4 h-4" />
-      <span>{label}</span>
-    </>
-  );
+  const baseClasses = `
+    inline-flex items-center gap-2
+    border border-gray-300
+    px-3 py-2
+    text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50
+    transition-colors rounded-md font-medium
+    ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+    ${className}
+  `;
 
-  if (url) {
-    return (
-      <Link to={url} className={baseClasses}>
-        {content}
-      </Link>
-    );
-  }
+  // const content = (
+  //   <>
+  //     <FiArrowLeft className="w-4 h-4" />
+  //     <span>{label}</span>
+  //   </>
+  // );
+
+  // if (url) {
+  //   return (
+  //     <Link to={url} className={baseClasses} title={label}>
+  //       {content}
+  //     </Link>
+  //   );
+  // }
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      className={baseClasses}
+      title={label}
     >
-      {content}
+     <FiArrowLeft className="w-4 h-4" />
+      <span style={{color:"#000000"}}>{label}</span>
     </button>
   );
 };

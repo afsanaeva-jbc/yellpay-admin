@@ -30,7 +30,7 @@ export interface QuickStat {
   variant?: 'default' | 'success' | 'warning' | 'error';
   displayFormat?: (value: string | number) => string;
   icon?: React.ReactElement;
-  showAsChip?: boolean; 
+  showAsChip?: boolean; // New property to control chip display
 }
 
 export interface DetailsField {
@@ -253,14 +253,14 @@ const DetailsView: React.FC<DetailsViewProps> = ({
   const allSections = [...builtInSections, ...sections];
 
   return (
-    <div className={`${className}`}>
+    <div className={`min-h-screen ${className}`}>
       {/* Header */}
       <div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-4">
-              <BackButton onClick={onBack} label={backButtonLabel} type={'Back'} />
-              <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
+             <BackButton onClick={onBack} label={backButtonLabel} type={'Back'} />
+              <h1 className="text-2xl font-semibold text-gray-900 h-full border-l border-gray-300 pl-5">{title}</h1>
             </div>
             <div className="flex items-center gap-2">
               {secondaryActions.map((action, index) => (
@@ -290,12 +290,12 @@ const DetailsView: React.FC<DetailsViewProps> = ({
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className={`grid grid-cols-1 ${gridCols} gap-8`}>
           {/* Main Content */}
           <div className={`${mainContentCols} space-y-2 border-gray-200 border rounded-xl`}>
             {/* Entity Header */}
-            <div className="p-6">
+            <div className="px-6 py-6">
               <div className="flex items-start gap-4">
                 <Avatar
                   src={entityAvatar}
@@ -342,7 +342,7 @@ const DetailsView: React.FC<DetailsViewProps> = ({
 
             {/* Sections */}
             {allSections.map((section) => (
-              <div key={section.key} className="p-6">
+              <div key={section.key} className="px-6 pb-6 ">
                 <div className="flex items-center gap-3 mb-6">
                   {section.icon && (
                     <div className="text-gray-400">
@@ -375,7 +375,7 @@ const DetailsView: React.FC<DetailsViewProps> = ({
 
             {/* Description */}
             {description && (
-              <div className="p-6">
+              <div className="px-6 pb-6 ">
                 <div className="flex items-center gap-3 mb-4">
                   {description.icon && (
                     <div className="text-gray-400">
