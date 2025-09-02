@@ -119,7 +119,7 @@ const EditMerchantForm: React.FC<EditMerchantFormProps> = ({
   // Show error if merchant not found
   if (!merchant) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen  flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Merchant Not Found</h2>
           <p className="text-gray-600 mb-6">The merchant you're looking for doesn't exist.</p>
@@ -338,7 +338,7 @@ const EditMerchantForm: React.FC<EditMerchantFormProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="pt-6">
       {loading && <Loading />}
       <DynamicForm
         config={editMerchantConfig}

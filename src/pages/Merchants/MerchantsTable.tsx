@@ -202,8 +202,8 @@ const navigate = useNavigate();
 
   const handleEdit = async (merchant: Merchant) => {
     setLoading(true);
-    try {
-      // Simulate API call
+    try { 
+       navigate("/merchants/edit/:id"); 
       await new Promise((resolve) => setTimeout(resolve, 800));
       console.log("Edit merchant:", merchant);
       showNotification(
