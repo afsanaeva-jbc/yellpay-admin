@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBell } from "react-icons/fa";
-import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+import { PanelLeft } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             className="flex items-center justify-center w-8 h-8 text-gray-600  hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer"
           >
             <div className="h-full border-r border-gray-300 flex items-center ">
-              <TbLayoutSidebarLeftCollapse className="w-6 h-6 text-black mx-4" />
+             <PanelLeft  className="w-5 h-5 text-black mx-4" />
             </div>
           </button>
         </div>
