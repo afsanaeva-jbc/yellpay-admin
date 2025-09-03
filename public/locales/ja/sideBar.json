@@ -1,11 +1,14 @@
 {
   "dashboard": "ダッシュボード",
-  "analytics": "分析",
+  "analytics": "アナリティクス",
   "transactions": "取引",
   "users": "ユーザー",
   "reports": "レポート",
   "settings": "設定",
-  "help": "ヘルプ",
+  "help": "ヘルプセンター",
   "logout": "ログアウト",
-  "merchants": "加盟店"
+  "merchants": "加盟店",
+  "main-menu":"メインメニュー",
+  "management":"管理",
+  "support":"サポート"
 }

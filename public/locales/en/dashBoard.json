@@ -1,0 +1,20 @@
+{
+  "dashboard": "Dashboard",
+  "dashboard-sub-text": "Manage your merchants and users from this central dashboard.",
+  "total-merchants": "Total Merchants",
+  "active-users": "Active Users",
+  "revenue": "Revenue",
+  "growth-rate": "Growth Rate",
+  "recent-activity":"Recent Activity",
+  "quick-actions":"Quick Actions",
+  "add-new-merchant":"Add New Merchant",
+  "generate-report":"Generate Report",
+  "review-pending":"Review Pending",
+  "register-new-merchant":"Register a new merchant in the system",
+  "create-performance-reports":"Create monthly performance report",
+  "review-pending-approvals":"Check merchants awaiting approval",
+  "day-ago":"day ago",
+  "hour-ago":"hours ago",
+  "minute-ago":"minutes ago",
+  "from-last-month":"from last month"
+}

@@ -10,7 +10,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { SideBarItems } from "./sidebarItems";
 import { useState, useEffect } from "react";
-
+import { useTranslation } from 'react-i18next';
 const expandedWidth = 250;
 const collapsedWidth = 70;
 
@@ -22,7 +22,7 @@ const SideBar = ({ open }: SideBarProps) => {
   const sideBarItems = SideBarItems();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
+  const { t } = useTranslation("sideBar");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -286,7 +286,7 @@ const SideBar = ({ open }: SideBarProps) => {
               letterSpacing: "0.05em",
             }}
           >
-            Main Menu
+           {t("main-menu")}
           </Typography>
         )}
         {renderMenuItems(mainMenuItems, 0)}
@@ -306,7 +306,7 @@ const SideBar = ({ open }: SideBarProps) => {
                   letterSpacing: "0.05em",
                 }}
               >
-                Management
+                 {t("management")}
               </Typography>
             )}
             {renderMenuItems(managementItems, mainMenuItems.length)}
@@ -329,7 +329,7 @@ const SideBar = ({ open }: SideBarProps) => {
                   letterSpacing: "0.05em",
                 }}
               >
-                Support
+              {t("support")}
               </Typography>
             )}
             {renderMenuItems(
@@ -348,6 +348,7 @@ const SideBar = ({ open }: SideBarProps) => {
             sx={{
               position: "absolute",
               borderTop: "1px solid #e5e7eb",
+              width: "100%",
               bottom: 0,
               left: 0,
               px: 2,

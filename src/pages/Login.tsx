@@ -116,12 +116,12 @@ const Login = () => {
               Forget Password
             </button>
           </Link>
-          <Link to="/register">
+          <Link to="/change-password">
             <button
               type="button"
               className="border border-gray-300 text-gray-800 font-medium text-sm py-2 px-10 rounded cursor-pointer hover:bg-gray-50 ml-8"
             >
-              Register
+              Change Password
             </button>
           </Link>
         </div>

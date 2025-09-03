@@ -4,7 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import DocumentListPage from "../pages/DocumentListPage";
-import ChangePassword from "../pages/ChangePassword";
+// import ChangePassword from "../pages/ChangePassword";
 import AdminForm from "../pages/AdminForm";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
@@ -20,6 +20,7 @@ import Merchants from "../pages/Merchants";
 import CreateMerchantForm from "../pages/Merchants/CreateMerchants";
 import EditMerchant from "../pages/Merchants/EditMerchant";
 import MerchantDetailsPage from "../pages/Merchants/MerchantDetails";
+import ChangePassword from "../pages/ChangePassword";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,6 @@ export const router = createBrowserRouter([
       { path: "merchants/details", element: <MerchantDetailsPage /> },
       { path: "merchants/edit/:id", element: <EditMerchant/> },
       { path: "doc-list", element: <DocumentListPage /> },
-      { path: "change-password", element: <ChangePassword /> },
       { path: "create-admin", element: <AdminForm /> },
       { path: "edit/:userId", element: <EditUserForm /> },
       { path: "users/:role", element: <ViewDetails /> },
@@ -51,6 +51,7 @@ export const router = createBrowserRouter([
   },
   { path: "/login", element: <Login /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/change-password", element: <ChangePassword /> },
   { path: "/reset-password", element: <ResetPassword /> },
   { path: "*", element: <NotFound /> },
 ]);

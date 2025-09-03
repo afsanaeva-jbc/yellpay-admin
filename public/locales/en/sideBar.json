@@ -6,6 +6,9 @@
   "users": "Users",
   "reports": "Reports",
   "settings": "Settings",
-  "help": "Help",
-  "logout": "Logout"
+  "help": "Help Center",
+  "logout": "Logout",
+  "main-menu":"Main Menu",
+  "management":"Management",
+  "support":"Support"
 }

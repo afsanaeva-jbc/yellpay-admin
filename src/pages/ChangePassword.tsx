@@ -73,7 +73,7 @@ const ChangePassword: React.FC = () => {
   };
 
   return (
-    <div className="max-w-[550px] m-auto">
+    <div className="max-w-[550px] m-auto flex align-center justify-center flex-col min-h-screen">
       {loading && <Loading />}
       <div className="w-full space-y-8 rounded-lg border-1  border-gray-200 bg-white p-8 m-8 dark:bg-[#18181B] flex flex-col">
         <h2 className="text-3xl font-bold text-[#D5242A] dark:text-[#ff4b4b]">

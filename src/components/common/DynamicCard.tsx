@@ -32,7 +32,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({
   value,
   change,
   // changeType = 'positive',
-  timeframe = 'from last month',
+  timeframe ,
   icon,
   items = [],
   actions = [],

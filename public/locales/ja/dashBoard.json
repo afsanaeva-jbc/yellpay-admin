@@ -1,0 +1,20 @@
+{
+  "dashboard": "ダッシュボード",
+  "dashboard-sub-text": "この中央ダッシュボードから加盟店とユーザーを管理できます。",
+  "total-merchants": "総加盟店数",
+  "active-users": "アクティブユーザー",
+  "revenue": "売上",
+  "growth-rate": "成長率",
+  "recent-activity":"最近のアクティビティ",
+  "quick-actions":"クイックアクション",
+  "add-new-merchant":"新しい加盟店を追加",
+  "generate-report":"レポートを生成",
+  "review-pending":"承認待ちをレビュー",
+  "register-new-merchant":"システムに新しい加盟店を登録します",
+  "create-performance-reports":"月次パフォーマンスレポートを作成します",
+  "review-pending-approvals":"承認待ちの加盟店を確認します",
+  "day-ago":"日前",
+  "hour-ago":"時間前",
+  "minute-ago":"分前",
+  "from-last-month":"先月比"
+}
