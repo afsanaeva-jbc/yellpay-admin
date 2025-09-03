@@ -1,0 +1,14 @@
+{
+  "merchants": "加盟店",
+  "add-new-merchant": "新しい加盟店を追加",
+  "merchant-name": "名前",
+  "business-type": "事業タイプ",
+  "email": "メール",
+  "status": "ステータス",
+  "discount-rate": "割引率",
+  "action": "アクション",
+  "all-status": "すべてのステータ",
+  "all-types": "すべてのタイプ",
+  "active": "アクティブ",
+  "inactive": "非アクティブ"
+}

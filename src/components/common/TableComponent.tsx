@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { GoPeople } from "react-icons/go";
 import { FiSearch, FiPlus } from "react-icons/fi";
 import SelectInput from "./SelectDropdown";
+import NoDataAvailable from "./NoData";
 
 const Table = ({
   children,
@@ -77,11 +77,13 @@ type FilterOption = {
 };
 
 type TableColumn<T> = {
-  key: keyof T;
+  id: keyof T | "actions";
   label: string;
+  align: "left" | "right" | "center";
+  hideHeader?: boolean;
+  width?: string;
   render?: (item: T) => React.ReactNode;
   sortable?: boolean;
-  width?: string;
 };
 
 type DynamicTableProps<T extends DataTableCommonBase> = {
@@ -210,60 +212,19 @@ const DynamicTable = <T extends DataTableCommonBase>({
     );
   };
 
-  const renderCell = (item: T, column: TableColumn<T>) => {
-    if (column.render) {
-      return column.render(item);
-    }
-
-    switch (column.key) {
-      case "name":
-        return (
-          <div className="flex items-center gap-3">
-            <div
-              className={`w-10 h-10 ${getAvatarColor(item.name)} text-white rounded-full flex items-center justify-center font-semibold text-sm`}
-            >
-              {getInitials(item.name)}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="font-medium text-gray-900 truncate">
-                {item.name || "Unknown"}
-              </div>
-              {item.description && (
-                <div className="text-sm text-gray-500 truncate max-w-xs">
-                  {item.description}
-                </div>
-              )}
-            </div>
-          </div>
-        );
-
-      case "status":
-        return renderStatusBadge(item.status);
-
-      case "email":
-        return (
-          <span className="text-sm text-gray-900">{item.email || "-"}</span>
-        );
-
-      case "businessType":
-        return (
-          <span className="inline-flex items-center px-2 py-0 text-xs text-gray-600 capitalize border border-gray-300 rounded-md font-semibold">
-            {item.businessType || "-"}
-          </span>
-        );
-
-      default: {
-        const value = item[column.key];
-        if (typeof value === "object" && value !== null) {
-          return String((value as unknown as { name: string })?.name ?? "-");
-        }
-        return String(value || "-");
-      }
+  const getAlignmentClass = (align: "left" | "right" | "center") => {
+    switch (align) {
+      case "center":
+        return "text-center";
+      case "right":
+        return "text-right";
+      default:
+        return "text-left";
     }
   };
 
   const skeletonCount = loading && data.length > 0 ? data.length : 5;
-  
+
   return (
     <div>
       {/* Header Section */}
@@ -300,7 +261,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
 
           {/* Filters */}
           {showFilters && (
-            <div className="flex gap-3 ">
+            <div className="flex gap-3">
               {statusFilter && (
                 <div className="relative min-w-[140px]">
                   <SelectInput
@@ -339,26 +300,23 @@ const DynamicTable = <T extends DataTableCommonBase>({
               {columns.map((column, index) => (
                 <TableHeaderCell
                   key={index}
-                  className={`text-left font-semibold text-gray-500  uppercase text-xs tracking-wider ${column.width || ""}`}
+                  className={`${getAlignmentClass(column.align)} font-semibold text-gray-500 uppercase text-xs tracking-wider`}
+                  style={{ width: column.width }}
                 >
-                  {column.label}
+                  {!column.hideHeader && column.label}
                 </TableHeaderCell>
               ))}
-              {actions && (
-                <TableHeaderCell className="text-center font-semibold text-gray-500 uppercase text-xs tracking-wider">
-                  Actions
-                </TableHeaderCell>
-              )}
             </TableRow>
           </TableHead>
 
           <TableBody>
             {loading ? (
+              // Skeleton Loader
               Array.from({ length: skeletonCount }).map((_, idx) => (
                 <TableRow key={idx} className="border-b border-gray-100">
                   {columns.map((column, cellIdx) => (
                     <TableCell key={cellIdx} className="px-6 py-4">
-                      {column.key === "name" ? (
+                      {column.id === "name" ? (
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gray-300 rounded-full animate-pulse"></div>
                           <div className="space-y-2">
@@ -366,61 +324,123 @@ const DynamicTable = <T extends DataTableCommonBase>({
                             <div className="w-24 h-3 bg-gray-100 rounded animate-pulse"></div>
                           </div>
                         </div>
+                      ) : column.id === "actions" ? (
+                        <div className="flex gap-2 justify-center">
+                          <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
+                          <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
+                        </div>
                       ) : (
                         <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
                       )}
                     </TableCell>
                   ))}
-                  {actions && (
-                    <TableCell className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
-                        <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
-                        <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
-                      </div>
-                    </TableCell>
-                  )}
                 </TableRow>
               ))
             ) : data.length === 0 ? (
+              // Empty State
               <TableRow>
-                <TableCell
-                  colSpan={columns.length + (actions ? 1 : 0)}
-                  className="text-center px-6 py-12 text-gray-500"
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    {emptyStateIcon || (
-                      <GoPeople className="text-4xl text-gray-300" />
-                    )}
-                    <span>{emptyStateText}</span>
-                  </div>
+                <TableCell colSpan={columns.length}>
+                  <NoDataAvailable
+                    message={emptyStateText}
+                    icon={emptyStateIcon}
+                  />
                 </TableCell>
               </TableRow>
             ) : (
-              data.map((item, index) => (
+              // Data Rows
+              data.map((item, itemIndex) => (
                 <TableRow
-                  key={item.id || index}
+                  key={item.id || itemIndex}
                   className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                 >
-                  {columns.map((column, cellIndex) => (
-                    <TableCell
-                      className={`px-6 py-4 text-sm ${column.width || ""}`}
-                      key={cellIndex}
-                    >
-                      {renderCell(item, column)}
-                    </TableCell>
-                  ))}
-                  {actions && (
-                    <TableCell className="px-6 py-4">
-                      <div className="flex gap-1">
-                        {actions(item).map((action, actionIdx) => (
-                          <div key={actionIdx} className="flex items-center ">
-                            {action}
-                          </div>
-                        ))}
-                      </div>
-                    </TableCell>
-                  )}
+                  {columns.map((column, cellIndex) => {
+                    const value = item[column.id as keyof T];
+
+                    let cellContent: React.ReactNode;
+
+                    if (column.render) {
+                      cellContent = column.render(item);
+                    } else {
+                      switch (column.id) {
+                        case "name":
+                          cellContent = (
+                            <div className="flex items-center gap-3">
+                              <div
+                                className={`w-10 h-10 ${getAvatarColor(item.name)} text-white rounded-full flex items-center justify-center font-semibold text-sm`}
+                              >
+                                {getInitials(item.name)}
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="font-medium text-gray-900 truncate">
+                                  {item.name || "Unknown"}
+                                </div>
+                                {item.description && (
+                                  <div className="text-sm text-gray-500 truncate max-w-xs">
+                                    {item.description}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                          break;
+
+                        case "status":
+                          cellContent = renderStatusBadge(item.status);
+                          break;
+
+                        case "email":
+                          cellContent = (
+                            <span className="text-sm text-gray-900">
+                              {item.email || "-"}
+                            </span>
+                          );
+                          break;
+
+                        case "businessType":
+                          cellContent = (
+                            <span className="inline-flex items-center px-2 py-0 text-xs text-gray-600 capitalize border border-gray-300 rounded-md font-semibold">
+                              {item.businessType || "-"}
+                            </span>
+                          );
+                          break;
+
+                        case "actions":
+                          cellContent = actions ? (
+                            <div className="flex gap-1 justify-center">
+                              {actions(item).map((action, actionIdx) => (
+                                <div
+                                  key={actionIdx}
+                                  className="flex items-center"
+                                >
+                                  {action}
+                                </div>
+                              ))}
+                            </div>
+                          ) : null;
+                          break;
+
+                        default:
+                          if (typeof value === "object" && value !== null) {
+                            cellContent = String(
+                              (value as { name?: string }).name ?? "-",
+                            );
+                          } else {
+                            cellContent = String(value || "-");
+                          }
+                          break;
+                      }
+                    }
+
+                    return (
+                      <TableCell
+                        key={cellIndex}
+                        className={`px-6 py-4 text-sm ${getAlignmentClass(column.align)}`}
+                        style={{ width: column.width }}
+                      >
+                        {cellContent}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             )}
@@ -430,7 +450,7 @@ const DynamicTable = <T extends DataTableCommonBase>({
 
       {/* Pagination */}
       {showPagination && (
-        <div className="flex items-center justify-between px-6 py-1  bg-white">
+        <div className="flex items-center justify-between px-6 py-1 bg-white">
           <div className="text-sm text-gray-500">
             Showing {(currentPage - 1) * itemsPerPage + 1}-
             {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}

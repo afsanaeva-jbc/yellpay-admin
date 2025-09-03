@@ -1,0 +1,14 @@
+{
+  "merchants": "Merchants",
+  "add-new-merchant": "Add New Merchant",
+  "merchant-name": "Name",
+  "business-type": "Business Type",
+  "email": "Email",
+  "status": "Status",
+  "discount-rate": "Discount Rate",
+  "action": "Action",
+  "all-status": "All Status",
+  "all-types": "All Types",
+  "active": "Active",
+  "inactive": "Inactive"
+}
